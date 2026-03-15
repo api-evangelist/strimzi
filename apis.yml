@@ -1,0 +1,15 @@
+name: Strimzi
+description: Kubernetes-native operator for running Apache Kafka on Kubernetes and
+  OpenShift, providing simplified deployment, management, and configuration of Kafka
+  clusters.
+url: https://strimzi.io/
+tags:
+- Kafka
+- Kubernetes
+- Operator
+- Messaging
+- Streaming
+created: '2025'
+modified: '2025'
+apis: []
+common: []
