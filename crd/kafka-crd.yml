@@ -1,0 +1,135 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: kafkas.kafka.strimzi.io
+  labels:
+    app: strimzi
+spec:
+  group: kafka.strimzi.io
+  names:
+    kind: Kafka
+    listKind: KafkaList
+    singular: kafka
+    plural: kafkas
+    shortNames:
+      - k
+    categories:
+      - strimzi
+  scope: Namespaced
+  versions:
+    - name: v1beta2
+      served: true
+      storage: true
+      subresources:
+        status: {}
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              description: The specification of the Kafka cluster
+              properties:
+                kafka:
+                  type: object
+                  description: Configuration of the Kafka broker nodes
+                  properties:
+                    replicas:
+                      type: integer
+                      minimum: 1
+                      description: The number of Kafka broker replicas
+                    version:
+                      type: string
+                      description: The Kafka version (e.g., 3.7.0)
+                    storage:
+                      type: object
+                      description: Storage configuration for Kafka brokers
+                      properties:
+                        type:
+                          type: string
+                          enum: [ephemeral, persistent-claim, jbod]
+                    config:
+                      type: object
+                      description: Kafka broker configuration overrides
+                      additionalProperties:
+                        type: string
+                    listeners:
+                      type: array
+                      description: Kafka listener configurations
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          port:
+                            type: integer
+                          type:
+                            type: string
+                            enum: [internal, route, loadbalancer, nodeport, ingress, cluster-ip]
+                          tls:
+                            type: boolean
+                    resources:
+                      type: object
+                      description: CPU and memory resource limits and requests
+                      properties:
+                        requests:
+                          type: object
+                          properties:
+                            cpu:
+                              type: string
+                            memory:
+                              type: string
+                        limits:
+                          type: object
+                          properties:
+                            cpu:
+                              type: string
+                            memory:
+                              type: string
+                zookeeper:
+                  type: object
+                  description: Configuration of ZooKeeper nodes (for non-KRaft mode)
+                  properties:
+                    replicas:
+                      type: integer
+                      minimum: 1
+                      description: The number of ZooKeeper replicas
+                    storage:
+                      type: object
+                      description: Storage configuration for ZooKeeper
+                entityOperator:
+                  type: object
+                  description: Configuration for the Entity Operator (topic and user operators)
+                  properties:
+                    topicOperator:
+                      type: object
+                    userOperator:
+                      type: object
+            status:
+              type: object
+              description: The status of the Kafka cluster
+              properties:
+                conditions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      status:
+                        type: string
+                      message:
+                        type: string
+                observedGeneration:
+                  type: integer
+                listeners:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      bootstrapServers:
+                        type: string
+                      type:
+                        type: string

@@ -1,0 +1,242 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Strimzi Kafka Messaging"
+  description: >-
+    Unified capability for Kafka messaging via the Strimzi Kafka Bridge REST API.
+    Designed for application developers and platform engineers who need to produce
+    and consume Kafka messages without a native Kafka client, manage consumer
+    group subscriptions, and query topic metadata. Ideal for HTTP microservices,
+    serverless functions, and legacy applications integrating with Kafka.
+  tags:
+    - Kafka
+    - Kubernetes
+    - Messaging
+    - Operator
+    - Streaming
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      KAFKA_BRIDGE_URL: KAFKA_BRIDGE_URL
+
+capability:
+  consumes:
+    - import: kafka-bridge
+      location: ./shared/kafka-bridge-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: strimzi-kafka-messaging-api
+      description: "Unified REST API for Kafka messaging via Strimzi Kafka Bridge."
+      resources:
+        - path: /v1/topics
+          name: topics
+          description: "Kafka topic listing"
+          operations:
+            - method: GET
+              name: list-topics
+              description: "List all available Kafka topics"
+              call: "kafka-bridge.list-topics"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/topics/{topicname}/partitions
+          name: topic-partitions
+          description: "Topic partition metadata"
+          operations:
+            - method: GET
+              name: list-partitions
+              description: "Get partition metadata for a topic"
+              call: "kafka-bridge.list-partitions"
+              with:
+                topicname: "rest.topicname"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/topics/{topicname}/messages
+          name: topic-messages
+          description: "Message production"
+          operations:
+            - method: POST
+              name: produce-messages
+              description: "Produce messages to a topic"
+              call: "kafka-bridge.send"
+              with:
+                topicname: "rest.topicname"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/consumers/{groupid}
+          name: consumers
+          description: "Consumer group management"
+          operations:
+            - method: POST
+              name: create-consumer
+              description: "Create a consumer instance"
+              call: "kafka-bridge.create-consumer"
+              with:
+                groupid: "rest.groupid"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/consumers/{groupid}/instances/{name}/subscription
+          name: consumer-subscriptions
+          description: "Consumer subscriptions"
+          operations:
+            - method: GET
+              name: list-subscriptions
+              description: "List consumer subscriptions"
+              call: "kafka-bridge.list-subscriptions"
+              with:
+                groupid: "rest.groupid"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: subscribe
+              description: "Subscribe consumer to topics"
+              call: "kafka-bridge.subscribe"
+              with:
+                groupid: "rest.groupid"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/consumers/{groupid}/instances/{name}/records
+          name: consumer-records
+          description: "Message consumption"
+          operations:
+            - method: GET
+              name: poll-messages
+              description: "Poll for messages"
+              call: "kafka-bridge.poll"
+              with:
+                groupid: "rest.groupid"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/consumers/{groupid}/instances/{name}/offsets
+          name: consumer-offsets
+          description: "Offset management"
+          operations:
+            - method: POST
+              name: commit-offsets
+              description: "Commit offsets"
+              call: "kafka-bridge.commit"
+              with:
+                groupid: "rest.groupid"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/health
+          name: health
+          description: "Bridge health"
+          operations:
+            - method: GET
+              name: health-check
+              description: "Check bridge health"
+              call: "kafka-bridge.healthy"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: strimzi-kafka-messaging-mcp
+      transport: http
+      description: "MCP server for AI-assisted Kafka messaging via Strimzi Kafka Bridge."
+      tools:
+        - name: list-topics
+          description: "List all available Kafka topics in the cluster"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "kafka-bridge.list-topics"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-topic-partitions
+          description: "Get partition metadata including leader and replica info for a topic"
+          hints:
+            readOnly: true
+          call: "kafka-bridge.list-partitions"
+          with:
+            topicname: "tools.topicname"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: produce-messages
+          description: "Send messages to a Kafka topic (supports key, value, headers, and partition targeting)"
+          hints:
+            readOnly: false
+          call: "kafka-bridge.send"
+          with:
+            topicname: "tools.topicname"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-consumer
+          description: "Create a Kafka consumer instance in a consumer group for message consumption"
+          hints:
+            readOnly: false
+          call: "kafka-bridge.create-consumer"
+          with:
+            groupid: "tools.groupid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: subscribe-to-topics
+          description: "Subscribe a consumer to one or more Kafka topics"
+          hints:
+            readOnly: false
+          call: "kafka-bridge.subscribe"
+          with:
+            groupid: "tools.groupid"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-subscriptions
+          description: "List the topics a consumer is subscribed to"
+          hints:
+            readOnly: true
+          call: "kafka-bridge.list-subscriptions"
+          with:
+            groupid: "tools.groupid"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: poll-messages
+          description: "Poll for messages from subscribed Kafka topics (long-poll with configurable timeout)"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "kafka-bridge.poll"
+          with:
+            groupid: "tools.groupid"
+            name: "tools.name"
+            timeout: "tools.timeout"
+            max_bytes: "tools.max_bytes"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: commit-offsets
+          description: "Commit consumer offsets to checkpoint consumption progress"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "kafka-bridge.commit"
+          with:
+            groupid: "tools.groupid"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."

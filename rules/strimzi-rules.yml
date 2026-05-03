@@ -1,0 +1,94 @@
+extends:
+  - spectral:oas
+
+rules:
+  strimzi-operation-ids-camel-case:
+    description: >-
+      Strimzi Kafka Bridge operationIds use camelCase (e.g., send,
+      createConsumer, poll, commit).
+    message: "OperationId '{{value}}' must use camelCase format"
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  strimzi-tags-title-case:
+    description: >-
+      All OpenAPI tags must use Title Case (e.g., 'Producer', 'Consumer',
+      'Topics', 'Seek').
+    message: "Tag '{{value}}' must use Title Case"
+    severity: warn
+    given: "$.tags[*].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z]*(\\s[A-Z][a-zA-Z]*)*$"
+
+  strimzi-kafka-content-type:
+    description: >-
+      Strimzi Kafka Bridge uses Kafka-specific content types for producer
+      and consumer endpoints. The content type format is:
+      application/vnd.kafka.{format}.v2+json or application/vnd.kafka.v2+json.
+    message: "Kafka Bridge endpoints should use Kafka content types"
+    severity: info
+    given: "$.paths['/topics/{topicname}'][post].requestBody.content"
+    then:
+      function: truthy
+      field: "application/vnd.kafka.json.v2+json"
+
+  strimzi-consumer-group-path-param:
+    description: >-
+      Consumer group endpoints must use 'groupid' as the path parameter
+      for the consumer group identifier.
+    message: "Consumer group path parameter must be named 'groupid'"
+    severity: warn
+    given: "$.paths['/consumers/{groupid}'][*].parameters[*].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^groupid$"
+
+  strimzi-delete-returns-204:
+    description: >-
+      DELETE operations return 204 No Content on success in the Kafka Bridge.
+    message: "DELETE operation should return 204 on success"
+    severity: info
+    given: "$.paths[*][delete].responses"
+    then:
+      function: truthy
+      field: "204"
+
+  strimzi-health-endpoints-documented:
+    description: >-
+      The Kafka Bridge must document /healthy and /ready endpoints for
+      Kubernetes liveness and readiness probes.
+    message: "Health check endpoints /healthy and /ready must be documented"
+    severity: warn
+    given: "$.paths"
+    then:
+      function: truthy
+      field: "/healthy"
+
+  strimzi-operation-summaries-present:
+    description: >-
+      All operations must have a summary.
+    message: "Operation must have a summary"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      function: truthy
+      field: "summary"
+
+  strimzi-topic-name-path-param:
+    description: >-
+      Topic endpoints use 'topicname' as the path parameter name
+      for consistency across Kafka Bridge endpoints.
+    message: "Topic path parameter should be named 'topicname'"
+    severity: info
+    given: "$.paths['/topics/{topicname}'][*].parameters[*].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^topicname$"

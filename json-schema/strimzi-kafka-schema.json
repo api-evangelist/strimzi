@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://strimzi.io/schemas/kafka.json",
+  "title": "Strimzi Kafka Custom Resource",
+  "description": "Represents a Kafka cluster managed by the Strimzi operator. The Kafka custom resource defines the desired state of a Kafka cluster including broker count, Kafka version, ZooKeeper/KRaft configuration, storage, listeners, and security settings.",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "enum": ["kafka.strimzi.io/v1beta2"],
+      "description": "The API version of the Strimzi resource"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["Kafka"],
+      "description": "The resource kind"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the Kafka cluster"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "The Kubernetes namespace"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "required": ["kafka"],
+      "properties": {
+        "kafka": {
+          "type": "object",
+          "required": ["replicas", "listeners", "storage"],
+          "description": "Kafka broker configuration",
+          "properties": {
+            "replicas": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Number of Kafka broker pods"
+            },
+            "version": {
+              "type": "string",
+              "description": "Kafka version to deploy (e.g., 3.7.0)"
+            },
+            "storage": {
+              "type": "object",
+              "required": ["type"],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["ephemeral", "persistent-claim", "jbod"],
+                  "description": "Storage type"
+                },
+                "size": {
+                  "type": "string",
+                  "description": "Storage size for persistent-claim (e.g., 100Gi)"
+                }
+              }
+            },
+            "listeners": {
+              "type": "array",
+              "description": "Kafka listener configurations",
+              "items": {
+                "type": "object",
+                "required": ["name", "port", "type", "tls"],
+                "properties": {
+                  "name": {"type": "string"},
+                  "port": {"type": "integer"},
+                  "type": {
+                    "type": "string",
+                    "enum": ["internal", "route", "loadbalancer", "nodeport", "ingress", "cluster-ip"]
+                  },
+                  "tls": {"type": "boolean"}
+                }
+              }
+            },
+            "config": {
+              "type": "object",
+              "description": "Kafka broker config overrides (server.properties)",
+              "additionalProperties": {"type": "string"}
+            }
+          }
+        },
+        "zookeeper": {
+          "type": "object",
+          "description": "ZooKeeper configuration (for non-KRaft mode)",
+          "properties": {
+            "replicas": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Number of ZooKeeper pods"
+            },
+            "storage": {
+              "type": "object",
+              "properties": {
+                "type": {"type": "string"},
+                "size": {"type": "string"}
+              }
+            }
+          }
+        },
+        "entityOperator": {
+          "type": "object",
+          "description": "Entity Operator configuration",
+          "properties": {
+            "topicOperator": {"type": "object"},
+            "userOperator": {"type": "object"}
+          }
+        }
+      }
+    }
+  }
+}

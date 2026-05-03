@@ -1,0 +1,77 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "strimzi": "https://strimzi.io/vocab/",
+    "kafka": "https://kafka.apache.org/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "k8s": "https://kubernetes.io/api/",
+
+    "KafkaCluster": {
+      "@id": "strimzi:KafkaCluster",
+      "@context": {
+        "name": "schema:name",
+        "namespace": "k8s:namespace",
+        "replicas": {
+          "@id": "strimzi:replicas",
+          "@type": "xsd:integer"
+        },
+        "version": {
+          "@id": "strimzi:kafkaVersion",
+          "@type": "xsd:string"
+        },
+        "bootstrapServers": {
+          "@id": "kafka:bootstrapServers",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "KafkaTopic": {
+      "@id": "kafka:Topic",
+      "@context": {
+        "name": "schema:name",
+        "partitions": {
+          "@id": "kafka:partitions",
+          "@type": "xsd:integer"
+        },
+        "replicas": {
+          "@id": "kafka:replicationFactor",
+          "@type": "xsd:integer"
+        },
+        "config": "kafka:topicConfig"
+      }
+    },
+
+    "KafkaUser": {
+      "@id": "strimzi:KafkaUser",
+      "@context": {
+        "name": "schema:name",
+        "authentication": "strimzi:authentication",
+        "authorization": "strimzi:authorization"
+      }
+    },
+
+    "Message": {
+      "@id": "kafka:Message",
+      "@context": {
+        "topic": "kafka:topic",
+        "partition": {
+          "@id": "kafka:partition",
+          "@type": "xsd:integer"
+        },
+        "offset": {
+          "@id": "kafka:offset",
+          "@type": "xsd:integer"
+        },
+        "key": "kafka:messageKey",
+        "value": "kafka:messageValue",
+        "timestamp": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Kafka",
+  "description": "A Strimzi-managed Kafka cluster custom resource defining the desired state of the Kafka deployment.",
+  "fields": [
+    {"name": "apiVersion", "type": "string", "required": true, "description": "kafka.strimzi.io/v1beta2"},
+    {"name": "kind", "type": "string", "required": true, "description": "Kafka"},
+    {"name": "metadata.name", "type": "string", "required": true, "description": "Cluster name (becomes DNS prefix)"},
+    {"name": "metadata.namespace", "type": "string", "required": false, "description": "Kubernetes namespace"},
+    {"name": "spec.kafka.replicas", "type": "integer", "required": true, "description": "Number of broker pods"},
+    {"name": "spec.kafka.version", "type": "string", "required": false, "description": "Kafka version (e.g., 3.7.0)"},
+    {"name": "spec.kafka.storage.type", "type": "string", "required": true, "description": "Storage type: ephemeral, persistent-claim, jbod"},
+    {"name": "spec.kafka.listeners", "type": "array", "required": true, "description": "Listener configurations (name, port, type, tls)"},
+    {"name": "spec.kafka.config", "type": "object", "required": false, "description": "Kafka server.properties overrides"},
+    {"name": "spec.zookeeper.replicas", "type": "integer", "required": false, "description": "ZooKeeper pod count (non-KRaft)"},
+    {"name": "spec.entityOperator.topicOperator", "type": "object", "required": false, "description": "Topic Operator config"},
+    {"name": "spec.entityOperator.userOperator", "type": "object", "required": false, "description": "User Operator config"},
+    {"name": "status.conditions", "type": "array", "required": false, "description": "Reconciliation conditions"},
+    {"name": "status.listeners", "type": "array", "required": false, "description": "Bootstrap server addresses by listener type"}
+  ],
+  "relationships": [
+    {"name": "KafkaTopic", "type": "array", "target": "KafkaTopic", "description": "Topics managed for this cluster via label strimzi.io/cluster"},
+    {"name": "KafkaUser", "type": "array", "target": "KafkaUser", "description": "Users managed for this cluster"},
+    {"name": "KafkaConnect", "type": "array", "target": "KafkaConnect", "description": "Connect clusters associated with this Kafka"},
+    {"name": "KafkaMirrorMaker2", "type": "array", "target": "KafkaMirrorMaker2", "description": "MirrorMaker 2 instances using this cluster"},
+    {"name": "KafkaBridge", "type": "array", "target": "KafkaBridge", "description": "HTTP Bridge instances for this cluster"}
+  ]
+}

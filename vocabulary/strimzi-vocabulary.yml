@@ -1,0 +1,161 @@
+vocabulary:
+  name: Strimzi Vocabulary
+  description: >-
+    Domain vocabulary for Strimzi and Apache Kafka on Kubernetes, covering
+    operator concepts, Kafka architecture, Kubernetes CRD patterns, and
+    streaming terminology.
+  version: '0.43.0'
+  created: '2026-05-02'
+  modified: '2026-05-02'
+
+terms:
+  - term: Operator
+    definition: >-
+      A Kubernetes Operator is a pattern for encoding operational knowledge
+      into software. The Strimzi Cluster Operator watches Kafka custom resources
+      and reconciles the actual cluster state to match the desired spec,
+      automating deployments, upgrades, and configuration changes.
+    synonyms:
+      - Kubernetes Operator
+      - Cluster Operator
+
+  - term: Custom Resource Definition
+    definition: >-
+      A Kubernetes API extension that defines custom resource types. Strimzi
+      uses CRDs to define Kafka, KafkaTopic, KafkaUser, KafkaConnect,
+      KafkaMirrorMaker2, KafkaBridge, and other Kafka-related resources.
+    synonyms:
+      - CRD
+      - Custom Resource
+
+  - term: Kafka
+    definition: >-
+      Apache Kafka is a distributed event streaming platform. In Strimzi, the
+      Kafka CRD (kafka.strimzi.io/v1beta2) defines the desired state of a Kafka
+      cluster including brokers, ZooKeeper/KRaft, listeners, storage, and
+      security configuration.
+
+  - term: Broker
+    definition: >-
+      A Kafka broker is a server that stores and serves messages. Strimzi
+      deploys brokers as Kubernetes StatefulSet pods. The spec.kafka.replicas
+      field controls the broker count.
+    synonyms:
+      - Kafka Broker
+      - Kafka Node
+
+  - term: KRaft
+    definition: >-
+      Kafka Raft Metadata mode — Apache Kafka's ZooKeeper-free consensus
+      protocol that enables Kafka to manage its own metadata using Raft.
+      Strimzi supports KRaft mode for simplified deployments without
+      a separate ZooKeeper cluster.
+    synonyms:
+      - Kafka Raft
+      - ZooKeeper-less mode
+
+  - term: KafkaTopic
+    definition: >-
+      A Strimzi custom resource (kafkatopics.kafka.strimzi.io) that declares
+      the desired state of a Kafka topic including partition count, replication
+      factor, and configuration. The Topic Operator reconciles KafkaTopic
+      resources to actual Kafka topics.
+
+  - term: KafkaUser
+    definition: >-
+      A Strimzi custom resource (kafkausers.kafka.strimzi.io) that manages
+      Kafka user authentication (TLS certificates or SCRAM-SHA-512) and
+      authorization (ACL rules). The User Operator creates corresponding
+      Kubernetes Secrets with credentials.
+
+  - term: KafkaConnect
+    definition: >-
+      A Strimzi custom resource for deploying Kafka Connect clusters. Kafka
+      Connect provides a framework for streaming data between Kafka and
+      external systems using source and sink connectors.
+    synonyms:
+      - Kafka Connector
+      - KafkaConnector
+
+  - term: KafkaMirrorMaker2
+    definition: >-
+      A Strimzi custom resource for deploying Kafka MirrorMaker 2, which
+      replicates topics between Kafka clusters. Used for geo-replication,
+      disaster recovery, and data migration.
+    synonyms:
+      - MirrorMaker 2
+      - MM2
+
+  - term: KafkaBridge
+    definition: >-
+      A Strimzi custom resource for deploying the Kafka Bridge, which provides
+      an HTTP/REST and AMQP interface to Kafka. Enables non-Kafka clients to
+      produce and consume messages via standard HTTP.
+
+  - term: Reconciliation
+    definition: >-
+      The process by which the Strimzi operator compares the desired state
+      (specified in CRDs) with the actual state (running Kubernetes resources)
+      and makes changes to converge them. Triggered by CRD changes or
+      on a periodic interval.
+
+  - term: Entity Operator
+    definition: >-
+      A Strimzi operator component that manages KafkaTopic and KafkaUser
+      resources. Consists of the Topic Operator (manages topics) and the
+      User Operator (manages users and ACLs). Deployed as part of the Kafka CRD.
+
+  - term: Bootstrap Server
+    definition: >-
+      The initial connection point for Kafka clients. Strimzi provides
+      bootstrap server addresses in the Kafka resource status for each
+      configured listener (e.g., my-cluster-kafka-bootstrap:9092).
+
+  - term: Listener
+    definition: >-
+      A Kafka listener configuration in Strimzi that defines how clients
+      connect to brokers. Types include internal (cluster-only), route
+      (OpenShift), loadbalancer, nodeport, and ingress.
+    synonyms:
+      - Kafka Listener
+
+  - term: JBOD Storage
+    definition: >-
+      Just a Bunch of Disks — a Strimzi storage type that allows Kafka brokers
+      to use multiple persistent volumes per broker, enabling horizontal
+      scaling of storage independently from broker count.
+
+  - term: Consumer Group
+    definition: >-
+      A group of Kafka consumers that jointly consume a topic, with each
+      partition assigned to exactly one consumer in the group. Consumer
+      group state (offsets) is tracked in Kafka's internal __consumer_offsets
+      topic.
+
+  - term: ACL
+    definition: >-
+      Access Control List — authorization rules defined in KafkaUser resources
+      that control which operations a user can perform on which Kafka resources
+      (topics, consumer groups, cluster). Uses Kafka's SimpleAclAuthorizer.
+    synonyms:
+      - Access Control List
+
+  - term: SCRAM-SHA-512
+    definition: >-
+      Salted Challenge Response Authentication Mechanism — a password-based
+      authentication protocol supported by Strimzi KafkaUser resources.
+      Credentials are stored in Kubernetes Secrets and automatically rotated
+      by the User Operator.
+
+  - term: TLS
+    definition: >-
+      Transport Layer Security — Strimzi supports TLS encryption for all
+      Kafka listeners and inter-broker communication. TLS certificates are
+      automatically generated and rotated by the Cluster Operator using
+      cert-manager or built-in certificate management.
+
+  - term: CNCF
+    definition: >-
+      Cloud Native Computing Foundation — the open source foundation hosting
+      Strimzi as a sandbox project. Strimzi follows CNCF governance and
+      contributes to the Kubernetes ecosystem for event streaming.
