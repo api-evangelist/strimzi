@@ -92,7 +92,7 @@ common:
     url: https://artifacthub.io/packages/helm/strimzi/strimzi-kafka-operator
   - type: Slack
     url: https://slack.cncf.io
-  - type: Changelog
+  - type: ChangeLog
     url: https://github.com/strimzi/strimzi-kafka-operator/releases
   - type: CNCF
     url: https://www.cncf.io/projects/strimzi/
