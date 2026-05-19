@@ -1,0 +1,173 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Strimzi Kafka Bridge REST API — Topics
+  description: 'Strimzi Kafka Bridge REST API — Topics. 4 operations. Lead operation: Check Bridge Health. Self-contained
+    Naftiko capability covering one Strimzi business surface.'
+  tags:
+  - Strimzi
+  - Topics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    STRIMZI_API_KEY: STRIMZI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kafka-bridge-topics
+    baseUri: http://localhost:8080
+    description: Strimzi Kafka Bridge REST API — Topics business capability. Self-contained, no shared references.
+    resources:
+    - name: healthy
+      path: /healthy
+      operations:
+      - name: healthy
+        method: GET
+        description: Check Bridge Health
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ready
+      path: /ready
+      operations:
+      - name: ready
+        method: GET
+        description: Check Bridge Readiness
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: topics
+      path: /topics
+      operations:
+      - name: listtopics
+        method: GET
+        description: List Topics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: topics-topicname-partitions
+      path: /topics/{topicname}/partitions
+      operations:
+      - name: listpartitions
+        method: GET
+        description: List Topic Partitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: topicname
+          in: path
+          type: string
+          description: The name of the Kafka topic
+          required: true
+  exposes:
+  - type: rest
+    namespace: kafka-bridge-topics-rest
+    port: 8080
+    description: REST adapter for Strimzi Kafka Bridge REST API — Topics. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/healthy
+      name: healthy
+      description: REST surface for healthy.
+      operations:
+      - method: GET
+        name: healthy
+        description: Check Bridge Health
+        call: kafka-bridge-topics.healthy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ready
+      name: ready
+      description: REST surface for ready.
+      operations:
+      - method: GET
+        name: ready
+        description: Check Bridge Readiness
+        call: kafka-bridge-topics.ready
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/topics
+      name: topics
+      description: REST surface for topics.
+      operations:
+      - method: GET
+        name: listtopics
+        description: List Topics
+        call: kafka-bridge-topics.listtopics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/topics/{topicname}/partitions
+      name: topics-topicname-partitions
+      description: REST surface for topics-topicname-partitions.
+      operations:
+      - method: GET
+        name: listpartitions
+        description: List Topic Partitions
+        call: kafka-bridge-topics.listpartitions
+        with:
+          topicname: rest.topicname
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kafka-bridge-topics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Strimzi Kafka Bridge REST API — Topics. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: check-bridge-health
+      description: Check Bridge Health
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kafka-bridge-topics.healthy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-bridge-readiness
+      description: Check Bridge Readiness
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kafka-bridge-topics.ready
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-topics
+      description: List Topics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kafka-bridge-topics.listtopics
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-topic-partitions
+      description: List Topic Partitions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kafka-bridge-topics.listpartitions
+      with:
+        topicname: tools.topicname
+      outputParameters:
+      - type: object
+        mapping: $.

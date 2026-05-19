@@ -1,0 +1,390 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Strimzi Kafka Bridge REST API — Consumer
+  description: 'Strimzi Kafka Bridge REST API — Consumer. 7 operations. Lead operation: Create Consumer. Self-contained Naftiko
+    capability covering one Strimzi business surface.'
+  tags:
+  - Strimzi
+  - Consumer
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    STRIMZI_API_KEY: STRIMZI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kafka-bridge-consumer
+    baseUri: http://localhost:8080
+    description: Strimzi Kafka Bridge REST API — Consumer business capability. Self-contained, no shared references.
+    resources:
+    - name: consumers-groupid
+      path: /consumers/{groupid}
+      operations:
+      - name: createconsumer
+        method: POST
+        description: Create Consumer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: groupid
+          in: path
+          type: string
+          description: The consumer group ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: consumers-groupid-instances-name
+      path: /consumers/{groupid}/instances/{name}
+      operations:
+      - name: deleteconsumer
+        method: DELETE
+        description: Delete Consumer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: groupid
+          in: path
+          type: string
+          description: The consumer group ID
+          required: true
+        - name: name
+          in: path
+          type: string
+          description: The unique name for the consumer instance
+          required: true
+    - name: consumers-groupid-instances-name-offsets
+      path: /consumers/{groupid}/instances/{name}/offsets
+      operations:
+      - name: commit
+        method: POST
+        description: Commit Offsets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: groupid
+          in: path
+          type: string
+          description: The consumer group ID
+          required: true
+        - name: name
+          in: path
+          type: string
+          description: The unique name for the consumer instance
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: consumers-groupid-instances-name-records
+      path: /consumers/{groupid}/instances/{name}/records
+      operations:
+      - name: poll
+        method: GET
+        description: Poll for Records
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: groupid
+          in: path
+          type: string
+          description: The consumer group ID
+          required: true
+        - name: name
+          in: path
+          type: string
+          description: The unique name for the consumer instance
+          required: true
+        - name: timeout
+          in: query
+          type: integer
+          description: Maximum time in milliseconds to wait for records
+        - name: max_bytes
+          in: query
+          type: integer
+          description: Maximum total bytes to return in the response
+    - name: consumers-groupid-instances-name-subscription
+      path: /consumers/{groupid}/instances/{name}/subscription
+      operations:
+      - name: subscribe
+        method: POST
+        description: Subscribe to Topics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: groupid
+          in: path
+          type: string
+          description: The consumer group ID
+          required: true
+        - name: name
+          in: path
+          type: string
+          description: The unique name for the consumer instance
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listsubscriptions
+        method: GET
+        description: List Topic Subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: groupid
+          in: path
+          type: string
+          description: The consumer group ID
+          required: true
+        - name: name
+          in: path
+          type: string
+          description: The unique name for the consumer instance
+          required: true
+      - name: unsubscribe
+        method: DELETE
+        description: Unsubscribe from Topics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: groupid
+          in: path
+          type: string
+          description: The consumer group ID
+          required: true
+        - name: name
+          in: path
+          type: string
+          description: The unique name for the consumer instance
+          required: true
+  exposes:
+  - type: rest
+    namespace: kafka-bridge-consumer-rest
+    port: 8080
+    description: REST adapter for Strimzi Kafka Bridge REST API — Consumer. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/consumers/{groupid}
+      name: consumers-groupid
+      description: REST surface for consumers-groupid.
+      operations:
+      - method: POST
+        name: createconsumer
+        description: Create Consumer
+        call: kafka-bridge-consumer.createconsumer
+        with:
+          groupid: rest.groupid
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/consumers/{groupid}/instances/{name}
+      name: consumers-groupid-instances-name
+      description: REST surface for consumers-groupid-instances-name.
+      operations:
+      - method: DELETE
+        name: deleteconsumer
+        description: Delete Consumer
+        call: kafka-bridge-consumer.deleteconsumer
+        with:
+          groupid: rest.groupid
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/consumers/{groupid}/instances/{name}/offsets
+      name: consumers-groupid-instances-name-offsets
+      description: REST surface for consumers-groupid-instances-name-offsets.
+      operations:
+      - method: POST
+        name: commit
+        description: Commit Offsets
+        call: kafka-bridge-consumer.commit
+        with:
+          groupid: rest.groupid
+          name: rest.name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/consumers/{groupid}/instances/{name}/records
+      name: consumers-groupid-instances-name-records
+      description: REST surface for consumers-groupid-instances-name-records.
+      operations:
+      - method: GET
+        name: poll
+        description: Poll for Records
+        call: kafka-bridge-consumer.poll
+        with:
+          groupid: rest.groupid
+          name: rest.name
+          timeout: rest.timeout
+          max_bytes: rest.max_bytes
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/consumers/{groupid}/instances/{name}/subscription
+      name: consumers-groupid-instances-name-subscription
+      description: REST surface for consumers-groupid-instances-name-subscription.
+      operations:
+      - method: POST
+        name: subscribe
+        description: Subscribe to Topics
+        call: kafka-bridge-consumer.subscribe
+        with:
+          groupid: rest.groupid
+          name: rest.name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listsubscriptions
+        description: List Topic Subscriptions
+        call: kafka-bridge-consumer.listsubscriptions
+        with:
+          groupid: rest.groupid
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: unsubscribe
+        description: Unsubscribe from Topics
+        call: kafka-bridge-consumer.unsubscribe
+        with:
+          groupid: rest.groupid
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kafka-bridge-consumer-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Strimzi Kafka Bridge REST API — Consumer. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: create-consumer
+      description: Create Consumer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kafka-bridge-consumer.createconsumer
+      with:
+        groupid: tools.groupid
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-consumer
+      description: Delete Consumer
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kafka-bridge-consumer.deleteconsumer
+      with:
+        groupid: tools.groupid
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: commit-offsets
+      description: Commit Offsets
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kafka-bridge-consumer.commit
+      with:
+        groupid: tools.groupid
+        name: tools.name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: poll-records
+      description: Poll for Records
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kafka-bridge-consumer.poll
+      with:
+        groupid: tools.groupid
+        name: tools.name
+        timeout: tools.timeout
+        max_bytes: tools.max_bytes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: subscribe-topics
+      description: Subscribe to Topics
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kafka-bridge-consumer.subscribe
+      with:
+        groupid: tools.groupid
+        name: tools.name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-topic-subscriptions
+      description: List Topic Subscriptions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kafka-bridge-consumer.listsubscriptions
+      with:
+        groupid: tools.groupid
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unsubscribe-topics
+      description: Unsubscribe from Topics
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kafka-bridge-consumer.unsubscribe
+      with:
+        groupid: tools.groupid
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
