@@ -2,12 +2,20 @@
   "repo": "strimzi",
   "feeds": [
     {
-      "source": "https://strimzi.io/blog/",
+      "source": "https://strimzi.io/feed.xml",
       "feed_url": "https://strimzi.io/feed.xml",
-      "title": "Strimzi - Apache Kafka on Kubernetes",
-      "saved": 6
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://github.com/strimzi/strimzi-kafka-operator",
+      "feed_url": "https://github.com/strimzi/strimzi-kafka-operator",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
   "post_count": 16,
-  "fetched": "2026-05-17T20:20:35Z"
+  "fetched": "2026-06-01T23:35:02Z"
 }
