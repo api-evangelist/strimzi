@@ -1,69 +1,93 @@
-# Strimzi
-Kubernetes-native operator for running Apache Kafka on Kubernetes and OpenShift, providing simplified deployment, management, and configuration of Kafka clusters via Custom Resource Definitions and the Kafka Bridge REST API.
+# Strimzi (strimzi)
 
-**URL:** [https://strimzi.io/](https://strimzi.io/)
+Strimzi is a CNCF project providing a Kubernetes-native operator for running Apache Kafka on Kubernetes and OpenShift. It simplifies the deployment, management, scaling, and configuration of Kafka clusters using Kubernetes Custom Resource Definitions (CRDs). Strimzi manages the full Kafka ecosystem including brokers, ZooKeeper/KRaft, Kafka Connect, Kafka MirrorMaker 2, Kafka Bridge, and Schema Registry. The operator pattern lets teams declare desired Kafka topology via YAML manifests managed by Kubernetes.
+
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
 
 ## Tags
 
-- Kafka, Kubernetes, Operator, Messaging, Streaming, CRD, Event Streaming
+- Kafka
+- Kubernetes
+- Messaging
+- Operator
+- Streaming
 
 ## Timestamps
 
-- **Created:** 2025
-- **Modified:** 2026-05-02
+- **Created:** 2025-01-01
+- **Modified:** 2026-05-19
 
-## Artifacts
+## APIs
 
-### APIs Index
-| File | Description |
-|------|-------------|
-| [apis.yml](apis.yml) | Index of all Strimzi APIs and artifacts |
+### Strimzi Operator API
 
-### Custom Resource Definitions (CRDs)
-| File | Description |
-|------|-------------|
-| [crd/kafka-crd.yml](crd/kafka-crd.yml) | Kafka cluster CRD (kafkas.kafka.strimzi.io/v1beta2) |
-| [crd/kafkatopic-crd.yml](crd/kafkatopic-crd.yml) | KafkaTopic CRD for declarative topic management |
-| [crd/kafkauser-crd.yml](crd/kafkauser-crd.yml) | KafkaUser CRD for authentication and ACL management |
+The Strimzi Operator API is expressed through Kubernetes Custom Resource Definitions (CRDs). Operators are controlled by creating and modifying Kafka, KafkaTopic, KafkaUser, KafkaConnect, KafkaMirrorMaker2, KafkaBridge, and related custom resources via the Kubernetes API. The Strimzi operator watches these resources and reconciles the actual cluster state to match the desired specification.
 
-### OpenAPI Specifications
-| File | Description |
-|------|-------------|
-| [openapi/strimzi-kafka-bridge-openapi.yml](openapi/strimzi-kafka-bridge-openapi.yml) | Strimzi Kafka Bridge REST API (OpenAPI 3.1.0) |
+- **Human URL:** [https://strimzi.io/docs/operators/latest/configuring.html](https://strimzi.io/docs/operators/latest/configuring.html)
 
-### JSON Schema
-| File | Description |
-|------|-------------|
-| [json-schema/strimzi-kafka-schema.json](json-schema/strimzi-kafka-schema.json) | JSON Schema for the Kafka CRD resource |
+#### Tags
 
-### JSON Structure
-| File | Description |
-|------|-------------|
-| [json-structure/strimzi-kafka-structure.json](json-structure/strimzi-kafka-structure.json) | Field structure and relationships for Kafka cluster resources |
+- Kafka
+- Kubernetes
+- Messaging
+- Operator
+- Streaming
 
-### JSON-LD
-| File | Description |
-|------|-------------|
-| [json-ld/strimzi-context.jsonld](json-ld/strimzi-context.jsonld) | JSON-LD context mapping Strimzi resources to Kafka and Kubernetes ontologies |
+#### Properties
 
-### Examples
-| File | Description |
-|------|-------------|
-| [examples/strimzi-kafka-cluster-example.json](examples/strimzi-kafka-cluster-example.json) | Production Kafka cluster manifest (3 brokers, TLS, persistent storage) |
-| [examples/strimzi-bridge-produce-example.json](examples/strimzi-bridge-produce-example.json) | Producing messages via the Kafka Bridge REST API |
+- [Documentation](https://strimzi.io/docs/operators/latest/)
+- [Git Hub](https://github.com/strimzi/strimzi-kafka-operator)
+- [Kubernetes C R D](https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/crd/kafka-crd.yml)
+- [Kubernetes C R D](https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/crd/kafkatopic-crd.yml)
+- [Kubernetes C R D](https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/crd/kafkauser-crd.yml)
+- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/json-schema/strimzi-kafka-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [Postman Collection](collections/strimzi-kafka-bridge.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/strimzi-kafka-bridge.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-### Spectral Rules
-| File | Description |
-|------|-------------|
-| [rules/strimzi-rules.yml](rules/strimzi-rules.yml) | Spectral linting rules for Strimzi Kafka Bridge API conventions |
+### Strimzi Kafka Bridge REST API
 
-### Naftiko Capabilities
-| File | Description |
-|------|-------------|
-| [capabilities/shared/kafka-bridge-api.yaml](capabilities/shared/kafka-bridge-api.yaml) | Shared Kafka Bridge API capability definition |
-| [capabilities/kafka-messaging.yaml](capabilities/kafka-messaging.yaml) | Unified Kafka messaging workflow capability (REST + MCP) |
+The Strimzi Kafka Bridge provides an HTTP/REST interface to Apache Kafka, allowing HTTP clients to produce and consume messages, manage consumer groups, and query topic metadata without a native Kafka client. The Bridge implements part of the OpenAPI specification for HTTP-to-Kafka bridging.
 
-### Vocabulary
-| File | Description |
-|------|-------------|
-| [vocabulary/strimzi-vocabulary.yml](vocabulary/strimzi-vocabulary.yml) | Domain vocabulary for Strimzi, Kafka, and Kubernetes operator concepts |
+- **Human URL:** [https://strimzi.io/docs/bridge/latest/](https://strimzi.io/docs/bridge/latest/)
+- **Base URL:** `http://localhost:8080`
+
+#### Tags
+
+- Kafka
+- Messaging
+- REST API
+- Streaming
+
+#### Properties
+
+- [Documentation](https://strimzi.io/docs/bridge/latest/)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/openapi/strimzi-kafka-bridge-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Git Hub](https://github.com/strimzi/strimzi-kafka-bridge)
+- [Postman Collection](collections/strimzi-kafka-bridge.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/strimzi-kafka-bridge.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+## Common Properties
+
+- [LinkedIn](https://www.linkedin.com/company/strimzi)
+- [Website](https://strimzi.io)
+- [Documentation](https://strimzi.io/docs/operators/latest/)
+- [Git Hub](https://github.com/strimzi/strimzi-kafka-operator)
+- [Blog](https://strimzi.io/blog/)
+- [Helm  Chart](https://artifacthub.io/packages/helm/strimzi/strimzi-kafka-operator)
+- [Slack](https://slack.cncf.io)
+- [Changelog](https://github.com/strimzi/strimzi-kafka-operator/releases)
+- [C N C F](https://www.cncf.io/projects/strimzi/)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/openapi/strimzi-kafka-bridge-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/json-schema/strimzi-kafka-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [J S O N L D Context](https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/json-ld/strimzi-context.jsonld)
+
+## Maintainers
+
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com

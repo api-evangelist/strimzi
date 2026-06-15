@@ -1,0 +1,2287 @@
+{
+  "item": [
+    {
+      "id": "7ce6281e-fa64-4847-854c-d59eafe9f326",
+      "name": "Producer",
+      "description": {
+        "content": "Endpoints for producing (sending) messages to Kafka topics via HTTP. Supports JSON and binary message formats.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4c5b3037-459b-418f-8e7c-0034cf69ff85",
+          "name": "Send Messages to Topic",
+          "request": {
+            "name": "Send Messages to Topic",
+            "description": {
+              "content": "Sends one or more messages to a Kafka topic. Messages can include a key, value, partition, headers, and timestamp. Supports JSON-encoded Kafka records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topics",
+                ":topicname"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "topicname",
+                  "description": "(Required) The name of the Kafka topic to send messages to"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.kafka.json.v2+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": \"<integer>\",\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      },\n      \"timestamp\": \"<integer>\"\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": \"<integer>\",\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      },\n      \"timestamp\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ea15dfd6-1a46-49a5-854f-ad343a35f682",
+              "name": "Messages sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic to send messages to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 1881,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"timestamp\": 948\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 4125,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"timestamp\": 9648\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"offsets\": [\n    {\n      \"partition\": 7770,\n      \"offset\": 4459,\n      \"error_code\": 2902,\n      \"error\": \"string\"\n    },\n    {\n      \"partition\": 7039,\n      \"offset\": 9475,\n      \"error_code\": 4188,\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96b9a8b9-46d2-43e8-b204-72265876c4b7",
+              "name": "Topic not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic to send messages to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 1881,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"timestamp\": 948\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 4125,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"timestamp\": 9648\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d8f4c42-51b9-42d0-9fdb-4cf6e67a1a97",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic to send messages to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 1881,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"timestamp\": 948\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 4125,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"timestamp\": 9648\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "099d1f7f-70e9-422a-a6cf-8f3307279e44",
+          "name": "Send Messages to Partition",
+          "request": {
+            "name": "Send Messages to Partition",
+            "description": {
+              "content": "Sends one or more messages to a specific partition of a Kafka topic.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topics",
+                ":topicname",
+                "partitions",
+                ":partitionid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "topicname",
+                  "description": "(Required) The name of the Kafka topic"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "partitionid",
+                  "description": "(Required) The partition ID to send messages to"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.kafka.json.v2+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": \"<integer>\",\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      },\n      \"timestamp\": \"<integer>\"\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": \"<integer>\",\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      },\n      \"timestamp\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cfa77249-c3f0-4e51-b9cd-a75095d46f5e",
+              "name": "Messages sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname",
+                    "partitions",
+                    ":partitionid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "partitionid",
+                      "description": "(Required) The partition ID to send messages to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 1881,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"timestamp\": 948\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 4125,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"timestamp\": 9648\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"offsets\": [\n    {\n      \"partition\": 7770,\n      \"offset\": 4459,\n      \"error_code\": 2902,\n      \"error\": \"string\"\n    },\n    {\n      \"partition\": 7039,\n      \"offset\": 9475,\n      \"error_code\": 4188,\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5047ab6a-3093-49d4-be22-65e66df2967d",
+              "name": "Topic not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname",
+                    "partitions",
+                    ":partitionid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "partitionid",
+                      "description": "(Required) The partition ID to send messages to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 1881,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"timestamp\": 948\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 4125,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"timestamp\": 9648\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "fb73abb2-876a-4910-875e-7cf251ecdfea",
+      "name": "Consumer",
+      "description": {
+        "content": "Endpoints for managing consumer groups and consuming messages from Kafka topics via HTTP long-polling.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "24a9405c-5290-4ddd-bbcb-52dab8ffe795",
+          "name": "Create Consumer",
+          "request": {
+            "name": "Create Consumer",
+            "description": {
+              "content": "Creates a new Kafka consumer instance in the specified consumer group. Returns a base URI for subsequent consumer operations. Consumer instances are not thread-safe and must be used by a single client.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":groupid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupid",
+                  "description": "(Required) The consumer group ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.kafka.v2+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"auto.offset.reset\": \"latest\",\n  \"format\": \"json\",\n  \"enable.auto.commit\": true,\n  \"fetch.min.bytes\": \"<integer>\",\n  \"consumer.request.timeout.ms\": \"<integer>\",\n  \"isolation.level\": \"read_uncommitted\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "483a6718-390d-4e53-998b-02151e10f2c6",
+              "name": "Consumer created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"auto.offset.reset\": \"latest\",\n  \"format\": \"json\",\n  \"enable.auto.commit\": true,\n  \"fetch.min.bytes\": \"<integer>\",\n  \"consumer.request.timeout.ms\": \"<integer>\",\n  \"isolation.level\": \"read_uncommitted\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"instance_id\": \"string\",\n  \"base_uri\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fb759c8-7c81-4d9e-b370-33841e808a1a",
+              "name": "Conflict — consumer with the same name already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"auto.offset.reset\": \"latest\",\n  \"format\": \"json\",\n  \"enable.auto.commit\": true,\n  \"fetch.min.bytes\": \"<integer>\",\n  \"consumer.request.timeout.ms\": \"<integer>\",\n  \"isolation.level\": \"read_uncommitted\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1044eb8-da13-415c-adda-1398be8e99a1",
+          "name": "Delete Consumer",
+          "request": {
+            "name": "Delete Consumer",
+            "description": {
+              "content": "Destroys a consumer instance and removes it from the consumer group. Any subscriptions and assignments are also removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":groupid",
+                "instances",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupid",
+                  "description": "(Required) The consumer group ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The unique name for the consumer instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "04bcb007-529f-49d8-b7f9-563ddaa0319d",
+              "name": "Consumer deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a09d323c-a935-4d2b-8d89-b13606fb6c8b",
+              "name": "Consumer not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03580054-96e5-490b-9e6b-cb219b8a44d8",
+          "name": "Subscribe to Topics",
+          "request": {
+            "name": "Subscribe to Topics",
+            "description": {
+              "content": "Subscribes a consumer to one or more Kafka topics. The consumer will receive messages from all partitions of the subscribed topics, with partitions assigned by the Kafka broker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":groupid",
+                "instances",
+                ":name",
+                "subscription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupid",
+                  "description": "(Required) The consumer group ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The unique name for the consumer instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.kafka.v2+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topics\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4a711844-a448-4b13-be7f-83c323b4a92f",
+              "name": "Consumer subscribed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topics\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c876accb-1ab5-4980-86c5-4691f8e49c3f",
+              "name": "Consumer not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topics\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b5c0b7c-e73f-4a4a-b565-bd4f6de9631f",
+              "name": "Conflict — consumer with the same name already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topics\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "624fae1b-f90d-47cc-bd7a-b3440f99ca07",
+          "name": "List Topic Subscriptions",
+          "request": {
+            "name": "List Topic Subscriptions",
+            "description": {
+              "content": "Returns the list of topics to which a consumer is subscribed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":groupid",
+                "instances",
+                ":name",
+                "subscription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupid",
+                  "description": "(Required) The consumer group ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The unique name for the consumer instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7fb42984-0147-442c-b2da-a3fda5e42455",
+              "name": "The subscriptions list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"topics\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ea5007e-ab38-408b-85fa-327ee3d53072",
+              "name": "Consumer not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d116a14-bf18-4326-95de-6788c70da858",
+          "name": "Unsubscribe from Topics",
+          "request": {
+            "name": "Unsubscribe from Topics",
+            "description": {
+              "content": "Removes the current subscription for a consumer, unsubscribing it from all topics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":groupid",
+                "instances",
+                ":name",
+                "subscription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupid",
+                  "description": "(Required) The consumer group ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The unique name for the consumer instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d0ccaa1-6566-4d5e-90ff-35921d7deb22",
+              "name": "Consumer unsubscribed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "15895f62-6f9f-4f03-9d8c-4cd72b684ea5",
+              "name": "Consumer not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3d697ca-f49d-4154-84dc-fac29fb0d4cf",
+          "name": "Poll for Records",
+          "request": {
+            "name": "Poll for Records",
+            "description": {
+              "content": "Fetches records from the topics to which the consumer is subscribed. Returns an empty array if no records are available. Calls are long-polled — the server waits up to the timeout for records to become available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":groupid",
+                "instances",
+                ":name",
+                "records"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeout",
+                  "value": "1000",
+                  "description": "Maximum time in milliseconds to wait for records"
+                },
+                {
+                  "disabled": false,
+                  "key": "max_bytes",
+                  "value": "<integer>",
+                  "description": "Maximum total bytes to return in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupid",
+                  "description": "(Required) The consumer group ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The unique name for the consumer instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.json.v2+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5a7c7186-e371-4ac1-b2e0-71d5fe6bc4ca",
+              "name": "A list of consumed records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "records"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeout",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "max_bytes",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.json.v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.json.v2+json"
+                }
+              ],
+              "body": "[\n  {\n    \"topic\": \"string\",\n    \"key\": {},\n    \"value\": {},\n    \"partition\": 7896,\n    \"offset\": 7134,\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"timestamp\": 6491\n  },\n  {\n    \"topic\": \"string\",\n    \"key\": {},\n    \"value\": {},\n    \"partition\": 5501,\n    \"offset\": 72,\n    \"headers\": {\n      \"key_0\": \"string\"\n    },\n    \"timestamp\": 7762\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35dcd013-b395-4699-ab8a-94ef15842abb",
+              "name": "Consumer not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "records"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeout",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "max_bytes",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d7f9aa0-4d8a-4c5f-a857-8c84724f543e",
+          "name": "Commit Offsets",
+          "request": {
+            "name": "Commit Offsets",
+            "description": {
+              "content": "Commits offsets for one or more topic partitions for the consumer. Committed offsets are used to resume consumption after a restart.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":groupid",
+                "instances",
+                ":name",
+                "offsets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupid",
+                  "description": "(Required) The consumer group ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The unique name for the consumer instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.kafka.v2+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offsets\": [\n    {\n      \"topic\": \"<string>\",\n      \"partition\": \"<integer>\",\n      \"offset\": \"<integer>\",\n      \"metadata\": \"<string>\"\n    },\n    {\n      \"topic\": \"<string>\",\n      \"partition\": \"<integer>\",\n      \"offset\": \"<integer>\",\n      \"metadata\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b2fa7f29-7e77-4a49-8a6b-4113ae9c4031",
+              "name": "Offsets committed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "offsets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsets\": [\n    {\n      \"topic\": \"string\",\n      \"partition\": 4546,\n      \"offset\": 3736,\n      \"metadata\": \"string\"\n    },\n    {\n      \"topic\": \"string\",\n      \"partition\": 5018,\n      \"offset\": 8302,\n      \"metadata\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8c4fe5d2-c2b5-48da-b0e5-53673139b34f",
+              "name": "Consumer not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "offsets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsets\": [\n    {\n      \"topic\": \"string\",\n      \"partition\": 4546,\n      \"offset\": 3736,\n      \"metadata\": \"string\"\n    },\n    {\n      \"topic\": \"string\",\n      \"partition\": 5018,\n      \"offset\": 8302,\n      \"metadata\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5849953b-2170-4b16-a4b0-115f81f616e6",
+      "name": "Topics",
+      "description": {
+        "content": "Endpoints for querying Kafka topic metadata including partition counts, offsets, and configuration.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e820cd44-8fb8-45d9-aa05-8024955b5448",
+          "name": "List Topics",
+          "request": {
+            "name": "List Topics",
+            "description": {
+              "content": "Returns a list of all topic names available in the Kafka cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b0c8634-2c40-4689-b59c-d3febb2068d7",
+              "name": "A list of topic names",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49a4c4a7-ea3d-4afa-963c-b398168a8387",
+          "name": "List Topic Partitions",
+          "request": {
+            "name": "List Topic Partitions",
+            "description": {
+              "content": "Returns partition metadata for all partitions of a topic, including leader, replicas, and in-sync replicas.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topics",
+                ":topicname",
+                "partitions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "topicname",
+                  "description": "(Required) The name of the Kafka topic"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f12ec5b1-a05b-4ea5-a4ec-91e2410d66f4",
+              "name": "Partition metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname",
+                    "partitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "[\n  {\n    \"partition\": 536,\n    \"leader\": 7725,\n    \"replicas\": [\n      {\n        \"broker\": 9038,\n        \"leader\": false,\n        \"in_sync\": false\n      },\n      {\n        \"broker\": 248,\n        \"leader\": false,\n        \"in_sync\": true\n      }\n    ]\n  },\n  {\n    \"partition\": 3117,\n    \"leader\": 3485,\n    \"replicas\": [\n      {\n        \"broker\": 9730,\n        \"leader\": false,\n        \"in_sync\": true\n      },\n      {\n        \"broker\": 4762,\n        \"leader\": false,\n        \"in_sync\": true\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d405f3d0-f4d7-4021-b117-dc13a5847e7a",
+              "name": "Topic not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname",
+                    "partitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18eff3f2-3aaa-4e30-bc67-1240768751bc",
+          "name": "Check Bridge Health",
+          "request": {
+            "name": "Check Bridge Health",
+            "description": {
+              "content": "Returns HTTP 200 if the Bridge is healthy and connected to Kafka.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "healthy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eeb02f6d-8e42-42c2-bca2-290a37407f01",
+              "name": "Bridge is healthy",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "994e82fb-ac72-44c6-8af2-e981ebe8bdf1",
+              "name": "Bridge is not healthy",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d47859b9-c071-4905-9a90-c7d5f2017906",
+          "name": "Check Bridge Readiness",
+          "request": {
+            "name": "Check Bridge Readiness",
+            "description": {
+              "content": "Returns HTTP 200 if the Bridge is ready to accept requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ready"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dcb4ae46-85c3-447b-8b1a-6dbfd095fd60",
+              "name": "Bridge is ready",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0cb8fdac-0ce1-4649-9cb4-72ed48935084",
+              "name": "Bridge is not ready",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "eb916f06-c478-4a34-a090-834621255bde",
+      "name": "Seek",
+      "description": {
+        "content": "Endpoints for seeking consumer positions within topic partitions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7197b93b-1e43-47b5-bdcc-8adc89697abf",
+          "name": "Seek to Offset",
+          "request": {
+            "name": "Seek to Offset",
+            "description": {
+              "content": "Overrides the fetch offset for one or more topic partitions, allowing the consumer to start reading from a specific position.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":groupid",
+                "instances",
+                ":name",
+                "positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupid",
+                  "description": "(Required) The consumer group ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The unique name for the consumer instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.kafka.v2+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offsets\": [\n    {\n      \"topic\": \"<string>\",\n      \"partition\": \"<integer>\",\n      \"offset\": \"<integer>\",\n      \"metadata\": \"<string>\"\n    },\n    {\n      \"topic\": \"<string>\",\n      \"partition\": \"<integer>\",\n      \"offset\": \"<integer>\",\n      \"metadata\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a7215450-de20-4c5f-b98a-8eb59b3fa2d4",
+              "name": "Seek successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsets\": [\n    {\n      \"topic\": \"string\",\n      \"partition\": 4546,\n      \"offset\": 3736,\n      \"metadata\": \"string\"\n    },\n    {\n      \"topic\": \"string\",\n      \"partition\": 5018,\n      \"offset\": 8302,\n      \"metadata\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c8ff6642-1395-4486-b8eb-28d7a8f56f02",
+              "name": "Consumer not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsets\": [\n    {\n      \"topic\": \"string\",\n      \"partition\": 4546,\n      \"offset\": 3736,\n      \"metadata\": \"string\"\n    },\n    {\n      \"topic\": \"string\",\n      \"partition\": 5018,\n      \"offset\": 8302,\n      \"metadata\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 5960,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "51b4ff01-96a6-48ca-a191-db2b06ec22ad",
+    "name": "Strimzi Kafka Bridge REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Strimzi Kafka Bridge provides an HTTP/REST interface to Apache Kafka. It allows HTTP clients to produce and consume messages, manage consumer group subscriptions, and query topic metadata without needing a native Kafka client library. The Bridge acts as a protocol translator between HTTP and the Kafka protocol. Deploy via the KafkaBridge custom resource.\n\nContact Support:\n Name: Strimzi Community",
+      "type": "text/plain"
+    }
+  }
+}
