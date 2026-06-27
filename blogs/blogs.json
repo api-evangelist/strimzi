@@ -5,7 +5,7 @@
       "source": "https://strimzi.io/feed.xml",
       "feed_url": "https://strimzi.io/feed.xml",
       "title": "",
-      "saved": 0,
+      "saved": 1,
       "method": "feed"
     },
     {
@@ -16,6 +16,6 @@
       "method": "none"
     }
   ],
-  "post_count": 16,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 17,
+  "fetched": "2026-06-27T12:03:07Z"
 }
