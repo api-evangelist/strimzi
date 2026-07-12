@@ -70,6 +70,8 @@ apis:
       - type: GitHub
         url: https://github.com/strimzi/strimzi-kafka-bridge
 common:
+  - type: DomainSecurity
+    url: security/strimzi-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/strimzi
   - type: Website
