@@ -1,0 +1,92 @@
+openapi: 3.1.0
+info:
+  title: Strimzi Kafka Bridge REST Consumer Seek API
+  description: The Strimzi Kafka Bridge provides an HTTP/REST interface to Apache Kafka. It allows HTTP clients to produce and consume messages, manage consumer group subscriptions, and query topic metadata without needing a native Kafka client library. The Bridge acts as a protocol translator between HTTP and the Kafka protocol. Deploy via the KafkaBridge custom resource.
+  version: 0.28.0
+  contact:
+    name: Strimzi Community
+    url: https://strimzi.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:8080
+  description: Kafka Bridge (default local port)
+tags:
+- name: Seek
+  description: Endpoints for seeking consumer positions within topic partitions.
+paths:
+  /consumers/{groupid}/instances/{name}/positions:
+    post:
+      operationId: seek
+      summary: Seek to Offset
+      description: Overrides the fetch offset for one or more topic partitions, allowing the consumer to start reading from a specific position.
+      tags:
+      - Seek
+      parameters:
+      - name: groupid
+        in: path
+        required: true
+        description: The consumer group ID
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        description: The unique name for the consumer instance
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.kafka.v2+json:
+            schema:
+              $ref: '#/components/schemas/OffsetCommitSeekList'
+      responses:
+        '204':
+          description: Seek successful
+        '404':
+          $ref: '#/components/responses/ConsumerNotFound'
+components:
+  responses:
+    ConsumerNotFound:
+      description: Consumer not found
+      content:
+        application/vnd.kafka.v2+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    OffsetCommitSeekList:
+      type: object
+      properties:
+        offsets:
+          type: array
+          items:
+            $ref: '#/components/schemas/OffsetCommitSeek'
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: integer
+          description: The error code
+        message:
+          type: string
+          description: A human-readable error message
+    OffsetCommitSeek:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: The topic name
+        partition:
+          type: integer
+          description: The partition number
+        offset:
+          type: integer
+          description: The offset to commit or seek to
+        metadata:
+          type: string
+          description: Optional metadata string to store with the committed offset
+externalDocs:
+  description: Strimzi Kafka Bridge Documentation
+  url: https://strimzi.io/docs/bridge/latest/

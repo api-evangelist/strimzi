@@ -1,0 +1,363 @@
+openapi: 3.1.0
+info:
+  title: Strimzi Kafka Bridge REST Consumer API
+  description: The Strimzi Kafka Bridge provides an HTTP/REST interface to Apache Kafka. It allows HTTP clients to produce and consume messages, manage consumer group subscriptions, and query topic metadata without needing a native Kafka client library. The Bridge acts as a protocol translator between HTTP and the Kafka protocol. Deploy via the KafkaBridge custom resource.
+  version: 0.28.0
+  contact:
+    name: Strimzi Community
+    url: https://strimzi.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:8080
+  description: Kafka Bridge (default local port)
+tags:
+- name: Consumer
+  description: Endpoints for managing consumer groups and consuming messages from Kafka topics via HTTP long-polling.
+paths:
+  /consumers/{groupid}:
+    post:
+      operationId: createConsumer
+      summary: Create Consumer
+      description: Creates a new Kafka consumer instance in the specified consumer group. Returns a base URI for subsequent consumer operations. Consumer instances are not thread-safe and must be used by a single client.
+      tags:
+      - Consumer
+      parameters:
+      - name: groupid
+        in: path
+        required: true
+        description: The consumer group ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.kafka.v2+json:
+            schema:
+              $ref: '#/components/schemas/Consumer'
+      responses:
+        '200':
+          description: Consumer created successfully
+          content:
+            application/vnd.kafka.v2+json:
+              schema:
+                $ref: '#/components/schemas/CreatedConsumer'
+        '409':
+          $ref: '#/components/responses/Conflict'
+  /consumers/{groupid}/instances/{name}:
+    delete:
+      operationId: deleteConsumer
+      summary: Delete Consumer
+      description: Destroys a consumer instance and removes it from the consumer group. Any subscriptions and assignments are also removed.
+      tags:
+      - Consumer
+      parameters:
+      - name: groupid
+        in: path
+        required: true
+        description: The consumer group ID
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        description: The unique name for the consumer instance
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Consumer deleted successfully
+        '404':
+          $ref: '#/components/responses/ConsumerNotFound'
+  /consumers/{groupid}/instances/{name}/subscription:
+    post:
+      operationId: subscribe
+      summary: Subscribe to Topics
+      description: Subscribes a consumer to one or more Kafka topics. The consumer will receive messages from all partitions of the subscribed topics, with partitions assigned by the Kafka broker.
+      tags:
+      - Consumer
+      parameters:
+      - name: groupid
+        in: path
+        required: true
+        description: The consumer group ID
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        description: The unique name for the consumer instance
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.kafka.v2+json:
+            schema:
+              $ref: '#/components/schemas/Topics'
+      responses:
+        '204':
+          description: Consumer subscribed successfully
+        '404':
+          $ref: '#/components/responses/ConsumerNotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    get:
+      operationId: listSubscriptions
+      summary: List Topic Subscriptions
+      description: Returns the list of topics to which a consumer is subscribed.
+      tags:
+      - Consumer
+      parameters:
+      - name: groupid
+        in: path
+        required: true
+        description: The consumer group ID
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        description: The unique name for the consumer instance
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The subscriptions list
+          content:
+            application/vnd.kafka.v2+json:
+              schema:
+                $ref: '#/components/schemas/SubscribedTopicList'
+        '404':
+          $ref: '#/components/responses/ConsumerNotFound'
+    delete:
+      operationId: unsubscribe
+      summary: Unsubscribe from Topics
+      description: Removes the current subscription for a consumer, unsubscribing it from all topics.
+      tags:
+      - Consumer
+      parameters:
+      - name: groupid
+        in: path
+        required: true
+        description: The consumer group ID
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        description: The unique name for the consumer instance
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Consumer unsubscribed successfully
+        '404':
+          $ref: '#/components/responses/ConsumerNotFound'
+  /consumers/{groupid}/instances/{name}/records:
+    get:
+      operationId: poll
+      summary: Poll for Records
+      description: Fetches records from the topics to which the consumer is subscribed. Returns an empty array if no records are available. Calls are long-polled — the server waits up to the timeout for records to become available.
+      tags:
+      - Consumer
+      parameters:
+      - name: groupid
+        in: path
+        required: true
+        description: The consumer group ID
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        description: The unique name for the consumer instance
+        schema:
+          type: string
+      - name: timeout
+        in: query
+        description: Maximum time in milliseconds to wait for records
+        schema:
+          type: integer
+          default: 1000
+      - name: max_bytes
+        in: query
+        description: Maximum total bytes to return in the response
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A list of consumed records
+          content:
+            application/vnd.kafka.json.v2+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConsumerRecord'
+        '404':
+          $ref: '#/components/responses/ConsumerNotFound'
+  /consumers/{groupid}/instances/{name}/offsets:
+    post:
+      operationId: commit
+      summary: Commit Offsets
+      description: Commits offsets for one or more topic partitions for the consumer. Committed offsets are used to resume consumption after a restart.
+      tags:
+      - Consumer
+      parameters:
+      - name: groupid
+        in: path
+        required: true
+        description: The consumer group ID
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        description: The unique name for the consumer instance
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/vnd.kafka.v2+json:
+            schema:
+              $ref: '#/components/schemas/OffsetCommitSeekList'
+      responses:
+        '204':
+          description: Offsets committed successfully
+        '404':
+          $ref: '#/components/responses/ConsumerNotFound'
+components:
+  schemas:
+    CreatedConsumer:
+      type: object
+      properties:
+        instance_id:
+          type: string
+          description: The ID of the created consumer instance
+        base_uri:
+          type: string
+          description: The base URI for subsequent requests for this consumer
+    ConsumerRecord:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: The topic the record was consumed from
+        key:
+          description: The message key
+        value:
+          description: The message value
+        partition:
+          type: integer
+          description: The partition the record came from
+        offset:
+          type: integer
+          description: The offset of the record
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Message headers
+        timestamp:
+          type: integer
+          description: Message timestamp in milliseconds since epoch
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: integer
+          description: The error code
+        message:
+          type: string
+          description: A human-readable error message
+    Consumer:
+      type: object
+      properties:
+        name:
+          type: string
+          description: A unique name for the consumer instance
+        auto.offset.reset:
+          type: string
+          enum:
+          - latest
+          - earliest
+          - none
+          default: latest
+          description: What to do when there is no initial offset
+        format:
+          type: string
+          enum:
+          - json
+          - binary
+          default: json
+          description: The message format for consuming records
+        enable.auto.commit:
+          type: boolean
+          default: true
+          description: If true, offsets are committed automatically
+        fetch.min.bytes:
+          type: integer
+          description: Minimum bytes to return per poll
+        consumer.request.timeout.ms:
+          type: integer
+          description: Maximum time for consumer requests in milliseconds
+        isolation.level:
+          type: string
+          enum:
+          - read_uncommitted
+          - read_committed
+          default: read_uncommitted
+    OffsetCommitSeekList:
+      type: object
+      properties:
+        offsets:
+          type: array
+          items:
+            $ref: '#/components/schemas/OffsetCommitSeek'
+    SubscribedTopicList:
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            type: string
+    Topics:
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            type: string
+          description: List of topic names to subscribe to
+    OffsetCommitSeek:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: The topic name
+        partition:
+          type: integer
+          description: The partition number
+        offset:
+          type: integer
+          description: The offset to commit or seek to
+        metadata:
+          type: string
+          description: Optional metadata string to store with the committed offset
+  responses:
+    ConsumerNotFound:
+      description: Consumer not found
+      content:
+        application/vnd.kafka.v2+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: Conflict — consumer with the same name already exists
+      content:
+        application/vnd.kafka.v2+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+externalDocs:
+  description: Strimzi Kafka Bridge Documentation
+  url: https://strimzi.io/docs/bridge/latest/

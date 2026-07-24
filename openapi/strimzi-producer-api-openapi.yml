@@ -1,0 +1,161 @@
+openapi: 3.1.0
+info:
+  title: Strimzi Kafka Bridge REST Consumer Producer API
+  description: The Strimzi Kafka Bridge provides an HTTP/REST interface to Apache Kafka. It allows HTTP clients to produce and consume messages, manage consumer group subscriptions, and query topic metadata without needing a native Kafka client library. The Bridge acts as a protocol translator between HTTP and the Kafka protocol. Deploy via the KafkaBridge custom resource.
+  version: 0.28.0
+  contact:
+    name: Strimzi Community
+    url: https://strimzi.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:8080
+  description: Kafka Bridge (default local port)
+tags:
+- name: Producer
+  description: Endpoints for producing (sending) messages to Kafka topics via HTTP. Supports JSON and binary message formats.
+paths:
+  /topics/{topicname}:
+    post:
+      operationId: send
+      summary: Send Messages to Topic
+      description: Sends one or more messages to a Kafka topic. Messages can include a key, value, partition, headers, and timestamp. Supports JSON-encoded Kafka records.
+      tags:
+      - Producer
+      parameters:
+      - name: topicname
+        in: path
+        required: true
+        description: The name of the Kafka topic to send messages to
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.kafka.json.v2+json:
+            schema:
+              $ref: '#/components/schemas/ProducerRecordList'
+      responses:
+        '200':
+          description: Messages sent successfully
+          content:
+            application/vnd.kafka.v2+json:
+              schema:
+                $ref: '#/components/schemas/OffsetRecordSentList'
+        '404':
+          $ref: '#/components/responses/TopicNotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /topics/{topicname}/partitions/{partitionid}:
+    post:
+      operationId: sendToPartition
+      summary: Send Messages to Partition
+      description: Sends one or more messages to a specific partition of a Kafka topic.
+      tags:
+      - Producer
+      parameters:
+      - name: topicname
+        in: path
+        required: true
+        description: The name of the Kafka topic
+        schema:
+          type: string
+      - name: partitionid
+        in: path
+        required: true
+        description: The partition ID to send messages to
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/vnd.kafka.json.v2+json:
+            schema:
+              $ref: '#/components/schemas/ProducerRecordList'
+      responses:
+        '200':
+          description: Messages sent successfully
+          content:
+            application/vnd.kafka.v2+json:
+              schema:
+                $ref: '#/components/schemas/OffsetRecordSentList'
+        '404':
+          $ref: '#/components/responses/TopicNotFound'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: integer
+          description: The error code
+        message:
+          type: string
+          description: A human-readable error message
+    OffsetRecordSentList:
+      type: object
+      properties:
+        offsets:
+          type: array
+          items:
+            $ref: '#/components/schemas/OffsetRecordSent'
+    ProducerRecord:
+      type: object
+      properties:
+        key:
+          description: The message key (optional)
+        value:
+          description: The message value (required)
+        partition:
+          type: integer
+          description: The target partition (optional — if not set, uses partitioner)
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Optional message headers
+        timestamp:
+          type: integer
+          description: Message timestamp in milliseconds since epoch
+    OffsetRecordSent:
+      type: object
+      properties:
+        partition:
+          type: integer
+          description: The partition the message was sent to
+        offset:
+          type: integer
+          description: The offset of the produced message
+        error_code:
+          type: integer
+          nullable: true
+          description: Error code if the record failed
+        error:
+          type: string
+          nullable: true
+          description: Error message if the record failed
+    ProducerRecordList:
+      type: object
+      properties:
+        records:
+          type: array
+          description: List of records to produce
+          items:
+            $ref: '#/components/schemas/ProducerRecord'
+  responses:
+    TopicNotFound:
+      description: Topic not found
+      content:
+        application/vnd.kafka.v2+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity
+      content:
+        application/vnd.kafka.v2+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+externalDocs:
+  description: Strimzi Kafka Bridge Documentation
+  url: https://strimzi.io/docs/bridge/latest/
