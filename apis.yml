@@ -7,6 +7,18 @@ description: >-
   Connect, Kafka MirrorMaker 2, Kafka Bridge, and Schema Registry. The operator pattern lets teams declare desired Kafka
   topology via YAML manifests managed by Kubernetes.
 url: https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/apis.yml
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 image: https://strimzi.io/images/logo/strimzi-logo.png
 tags:
   - Kafka
@@ -21,54 +33,97 @@ created: '2025-01-01'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: strimzi:strimzi-operator-api
-    name: Strimzi Operator API
-    description: >-
-      The Strimzi Operator API is expressed through Kubernetes Custom Resource Definitions (CRDs). Operators are
-      controlled by creating and modifying Kafka, KafkaTopic, KafkaUser, KafkaConnect, KafkaMirrorMaker2, KafkaBridge,
-      and related custom resources via the Kubernetes API. The Strimzi operator watches these resources and reconciles
-      the actual cluster state to match the desired specification.
-    humanURL: https://strimzi.io/docs/operators/latest/configuring.html
-    tags:
-      - Kafka
-      - Kubernetes
-      - Messaging
-      - Operator
-      - Streaming
-    properties:
-      - type: Documentation
-        url: https://strimzi.io/docs/operators/latest/
-      - type: GitHub
-        url: https://github.com/strimzi/strimzi-kafka-operator
-      - type: KubernetesCRD
-        url: https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/crd/kafka-crd.yml
-      - type: KubernetesCRD
-        url: https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/crd/kafkatopic-crd.yml
-      - type: KubernetesCRD
-        url: https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/crd/kafkauser-crd.yml
-      - type: JSONSchema
-        url: https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/json-schema/strimzi-kafka-schema.json
-  - aid: strimzi:strimzi-kafka-bridge-api
-    name: Strimzi Kafka Bridge REST API
-    description: >-
-      The Strimzi Kafka Bridge provides an HTTP/REST interface to Apache Kafka, allowing HTTP clients to produce and
-      consume messages, manage consumer groups, and query topic metadata without a native Kafka client. The Bridge
-      implements part of the OpenAPI specification for HTTP-to-Kafka bridging.
-    humanURL: https://strimzi.io/docs/bridge/latest/
-    baseURL: http://localhost:8080
-    tags:
-      - Kafka
-      - Messaging
-      - REST API
-      - Streaming
-    properties:
-      - type: Documentation
-        url: https://strimzi.io/docs/bridge/latest/
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/openapi/strimzi-kafka-bridge-openapi.yml
-      - type: GitHub
-        url: https://github.com/strimzi/strimzi-kafka-bridge
+- aid: strimzi:strimzi-operator-api
+  name: Strimzi Operator API
+  description: >-
+    The Strimzi Operator API is expressed through Kubernetes Custom Resource Definitions (CRDs). Operators
+    are controlled by creating and modifying Kafka, KafkaTopic, KafkaUser, KafkaConnect, KafkaMirrorMaker2,
+    KafkaBridge, and related custom resources via the Kubernetes API. The Strimzi operator watches these
+    resources and reconciles the actual cluster state to match the desired specification.
+  humanURL: https://strimzi.io/docs/operators/latest/configuring.html
+  tags:
+  - Kafka
+  - Kubernetes
+  - Messaging
+  - Operator
+  - Streaming
+  properties:
+  - type: Documentation
+    url: https://strimzi.io/docs/operators/latest/
+  - type: GitHub
+    url: https://github.com/strimzi/strimzi-kafka-operator
+  - type: KubernetesCRD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/crd/kafka-crd.yml
+  - type: KubernetesCRD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/crd/kafkatopic-crd.yml
+  - type: KubernetesCRD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/crd/kafkauser-crd.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/json-schema/strimzi-kafka-schema.json
+- aid: strimzi:strimzi-consumer-api
+  name: Strimzi Consumer API
+  description: >-
+    Endpoints for managing consumer groups and consuming messages from Kafka topics via HTTP long-polling.
+  humanURL: https://strimzi.io/docs/operators/latest/configuring.html
+  baseURL: http://localhost:8080
+  tags:
+  - Consumer
+  properties:
+  - type: OpenAPI
+    url: openapi/strimzi-consumer-api-openapi.yml
+  - type: Documentation
+    url: https://strimzi.io/docs/bridge/latest/
+  - type: GitHub
+    url: https://github.com/strimzi/strimzi-kafka-bridge
+- aid: strimzi:strimzi-producer-api
+  name: Strimzi Producer API
+  description: >-
+    Endpoints for producing (sending) messages to Kafka topics via HTTP. Supports JSON and binary message
+    formats.
+  humanURL: https://strimzi.io/docs/operators/latest/configuring.html
+  baseURL: http://localhost:8080
+  tags:
+  - Producer
+  properties:
+  - type: OpenAPI
+    url: openapi/strimzi-producer-api-openapi.yml
+  - type: Documentation
+    url: https://strimzi.io/docs/bridge/latest/
+  - type: GitHub
+    url: https://github.com/strimzi/strimzi-kafka-bridge
+- aid: strimzi:strimzi-seek-api
+  name: Strimzi Seek API
+  description: Endpoints for seeking consumer positions within topic partitions.
+  humanURL: https://strimzi.io/docs/operators/latest/configuring.html
+  baseURL: http://localhost:8080
+  tags:
+  - Seek
+  properties:
+  - type: OpenAPI
+    url: openapi/strimzi-seek-api-openapi.yml
+  - type: Documentation
+    url: https://strimzi.io/docs/bridge/latest/
+  - type: GitHub
+    url: https://github.com/strimzi/strimzi-kafka-bridge
+- aid: strimzi:strimzi-topics-api
+  name: Strimzi Topics API
+  description: >-
+    Endpoints for querying Kafka topic metadata including partition counts, offsets, and configuration.
+  humanURL: https://strimzi.io/docs/operators/latest/configuring.html
+  baseURL: http://localhost:8080
+  tags:
+  - Topics
+  properties:
+  - type: OpenAPI
+    url: openapi/strimzi-topics-api-openapi.yml
+  - type: Documentation
+    url: https://strimzi.io/docs/bridge/latest/
+  - type: GitHub
+    url: https://github.com/strimzi/strimzi-kafka-bridge
 common:
   - type: AgenticAccess
     url: agentic-access/strimzi-agentic-access.yml
