@@ -1,0 +1,20 @@
+{
+  "provider": "strimzi",
+  "sources": [
+    "strimzi-consumer-api-openapi.yml",
+    "strimzi-producer-api-openapi.yml",
+    "strimzi-seek-api-openapi.yml",
+    "strimzi-topics-api-openapi.yml"
+  ],
+  "outputs": [
+    "strimzi-consumer-api-openapi.yml",
+    "strimzi-producer-api-openapi.yml",
+    "strimzi-seek-api-openapi.yml",
+    "strimzi-topics-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
