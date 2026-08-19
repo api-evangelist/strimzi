@@ -1,0 +1,433 @@
+{
+  "item": [
+    {
+      "id": "09a48799-c984-4260-8950-5825ee29fbdf",
+      "name": "Producer",
+      "description": {
+        "content": "Endpoints for producing (sending) messages to Kafka topics via HTTP. Supports JSON and binary message formats.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dfe7dd6b-b35e-43a7-a2e4-eb25f4dbdacb",
+          "name": "Send Messages to Topic",
+          "request": {
+            "name": "Send Messages to Topic",
+            "description": {
+              "content": "Sends one or more messages to a Kafka topic. Messages can include a key, value, partition, headers, and timestamp. Supports JSON-encoded Kafka records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topics",
+                ":topicname"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "topicname",
+                  "description": "(Required) The name of the Kafka topic to send messages to"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.kafka.json.v2+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": \"<integer>\",\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      },\n      \"timestamp\": \"<integer>\"\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": \"<integer>\",\n      \"headers\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      \"timestamp\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d3d9b1c7-f97b-4d62-b95c-ed9b0a6c6346",
+              "name": "Messages sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic to send messages to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 8451,\n      \"headers\": {\n        \"key_0\": \"string\"\n      },\n      \"timestamp\": 8016\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 7031,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"timestamp\": 8908\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"offsets\": [\n    {\n      \"partition\": 6599,\n      \"offset\": 9186,\n      \"error_code\": 1982,\n      \"error\": \"string\"\n    },\n    {\n      \"partition\": 488,\n      \"offset\": 9594,\n      \"error_code\": 2108,\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e8ceb64-3e25-4231-8054-610c722e6c65",
+              "name": "Topic not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic to send messages to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 8451,\n      \"headers\": {\n        \"key_0\": \"string\"\n      },\n      \"timestamp\": 8016\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 7031,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"timestamp\": 8908\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 9161,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "641e83ea-a584-4289-9d18-97a72dbb9bd8",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic to send messages to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 8451,\n      \"headers\": {\n        \"key_0\": \"string\"\n      },\n      \"timestamp\": 8016\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 7031,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"timestamp\": 8908\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 9161,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5552ff1-c307-48e7-afd7-98d2a9ae83fe",
+          "name": "Send Messages to Partition",
+          "request": {
+            "name": "Send Messages to Partition",
+            "description": {
+              "content": "Sends one or more messages to a specific partition of a Kafka topic.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topics",
+                ":topicname",
+                "partitions",
+                ":partitionid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "topicname",
+                  "description": "(Required) The name of the Kafka topic"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "partitionid",
+                  "description": "(Required) The partition ID to send messages to"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.kafka.json.v2+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": \"<integer>\",\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      },\n      \"timestamp\": \"<integer>\"\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": \"<integer>\",\n      \"headers\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      \"timestamp\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "85c4bfc6-7cbf-4ee5-bc71-92f28f14b958",
+              "name": "Messages sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname",
+                    "partitions",
+                    ":partitionid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "partitionid",
+                      "description": "(Required) The partition ID to send messages to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 8451,\n      \"headers\": {\n        \"key_0\": \"string\"\n      },\n      \"timestamp\": 8016\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 7031,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"timestamp\": 8908\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"offsets\": [\n    {\n      \"partition\": 6599,\n      \"offset\": 9186,\n      \"error_code\": 1982,\n      \"error\": \"string\"\n    },\n    {\n      \"partition\": 488,\n      \"offset\": 9594,\n      \"error_code\": 2108,\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdfeeabe-0796-4bce-9ae0-37d26a5be378",
+              "name": "Topic not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname",
+                    "partitions",
+                    ":partitionid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "partitionid",
+                      "description": "(Required) The partition ID to send messages to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 8451,\n      \"headers\": {\n        \"key_0\": \"string\"\n      },\n      \"timestamp\": 8016\n    },\n    {\n      \"key\": {},\n      \"value\": {},\n      \"partition\": 7031,\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"timestamp\": 8908\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 9161,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "edeb5fec-f003-484d-ade1-4e0ff9c1b519",
+    "name": "Strimzi Kafka Bridge REST Consumer Producer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Strimzi Kafka Bridge provides an HTTP/REST interface to Apache Kafka. It allows HTTP clients to produce and consume messages, manage consumer group subscriptions, and query topic metadata without needing a native Kafka client library. The Bridge acts as a protocol translator between HTTP and the Kafka protocol. Deploy via the KafkaBridge custom resource.\n\nContact Support:\n Name: Strimzi Community",
+      "type": "text/plain"
+    }
+  }
+}

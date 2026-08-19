@@ -1,0 +1,411 @@
+{
+  "item": [
+    {
+      "id": "638ade89-17b7-4774-ba72-c4ad25eb34ad",
+      "name": "Topics",
+      "description": {
+        "content": "Endpoints for querying Kafka topic metadata including partition counts, offsets, and configuration.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d05aeac2-c50d-4d62-9804-cbd18b3ed88e",
+          "name": "List Topics",
+          "request": {
+            "name": "List Topics",
+            "description": {
+              "content": "Returns a list of all topic names available in the Kafka cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4135656e-9eb7-40cc-922f-b84f3b7135b5",
+              "name": "A list of topic names",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9126147a-5397-49c0-b865-a1535997dc83",
+          "name": "List Topic Partitions",
+          "request": {
+            "name": "List Topic Partitions",
+            "description": {
+              "content": "Returns partition metadata for all partitions of a topic, including leader, replicas, and in-sync replicas.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topics",
+                ":topicname",
+                "partitions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "topicname",
+                  "description": "(Required) The name of the Kafka topic"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33268fab-e64a-4b74-b1cc-f5904f0f600f",
+              "name": "Partition metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname",
+                    "partitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "[\n  {\n    \"partition\": 7330,\n    \"leader\": 4159,\n    \"replicas\": [\n      {\n        \"broker\": 5152,\n        \"leader\": true,\n        \"in_sync\": false\n      },\n      {\n        \"broker\": 7288,\n        \"leader\": false,\n        \"in_sync\": true\n      }\n    ]\n  },\n  {\n    \"partition\": 8844,\n    \"leader\": 3201,\n    \"replicas\": [\n      {\n        \"broker\": 2308,\n        \"leader\": true,\n        \"in_sync\": false\n      },\n      {\n        \"broker\": 9089,\n        \"leader\": true,\n        \"in_sync\": true\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44abcedc-547d-49b8-9167-59e08d4ebaa2",
+              "name": "Topic not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topics",
+                    ":topicname",
+                    "partitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "topicname",
+                      "description": "(Required) The name of the Kafka topic"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 2726,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbbf7902-89fb-4e44-bd5b-8eed9f12779c",
+          "name": "Check Bridge Health",
+          "request": {
+            "name": "Check Bridge Health",
+            "description": {
+              "content": "Returns HTTP 200 if the Bridge is healthy and connected to Kafka.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "healthy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b32def88-529a-49a4-9fc8-4b42e1fe3257",
+              "name": "Bridge is healthy",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d5059a17-9ffa-4892-9b7a-5de30ab37aa7",
+              "name": "Bridge is not healthy",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99c58c0a-2441-438d-b304-ec266c493fba",
+          "name": "Check Bridge Readiness",
+          "request": {
+            "name": "Check Bridge Readiness",
+            "description": {
+              "content": "Returns HTTP 200 if the Bridge is ready to accept requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ready"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7f405f6c-1dab-4965-a69b-f3ff0eb761db",
+              "name": "Bridge is ready",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2eb72704-23bd-425c-80be-456dccd60bee",
+              "name": "Bridge is not ready",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8f290ff0-40ff-477f-8cb7-e9a6cca902bf",
+    "name": "Strimzi Kafka Bridge REST Consumer Topics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Strimzi Kafka Bridge provides an HTTP/REST interface to Apache Kafka. It allows HTTP clients to produce and consume messages, manage consumer group subscriptions, and query topic metadata without needing a native Kafka client library. The Bridge acts as a protocol translator between HTTP and the Kafka protocol. Deploy via the KafkaBridge custom resource.\n\nContact Support:\n Name: Strimzi Community",
+      "type": "text/plain"
+    }
+  }
+}

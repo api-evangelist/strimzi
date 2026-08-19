@@ -1,0 +1,217 @@
+{
+  "item": [
+    {
+      "id": "67d56394-8ca0-4af4-a32f-64b7d9591783",
+      "name": "Seek",
+      "description": {
+        "content": "Endpoints for seeking consumer positions within topic partitions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b9b9b603-a7df-4c88-a63c-7526979b451c",
+          "name": "Seek to Offset",
+          "request": {
+            "name": "Seek to Offset",
+            "description": {
+              "content": "Overrides the fetch offset for one or more topic partitions, allowing the consumer to start reading from a specific position.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":groupid",
+                "instances",
+                ":name",
+                "positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "groupid",
+                  "description": "(Required) The consumer group ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The unique name for the consumer instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.kafka.v2+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.kafka.v2+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offsets\": [\n    {\n      \"topic\": \"<string>\",\n      \"partition\": \"<integer>\",\n      \"offset\": \"<integer>\",\n      \"metadata\": \"<string>\"\n    },\n    {\n      \"topic\": \"<string>\",\n      \"partition\": \"<integer>\",\n      \"offset\": \"<integer>\",\n      \"metadata\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "62a909bf-d2b5-4456-92d9-e0a87221c42f",
+              "name": "Seek successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsets\": [\n    {\n      \"topic\": \"string\",\n      \"partition\": 636,\n      \"offset\": 5083,\n      \"metadata\": \"string\"\n    },\n    {\n      \"topic\": \"string\",\n      \"partition\": 6448,\n      \"offset\": 4732,\n      \"metadata\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f3ffa21d-b2f3-4229-9ad1-3d7a97dd3b27",
+              "name": "Consumer not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":groupid",
+                    "instances",
+                    ":name",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "groupid",
+                      "description": "(Required) The consumer group ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The unique name for the consumer instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsets\": [\n    {\n      \"topic\": \"string\",\n      \"partition\": 636,\n      \"offset\": 5083,\n      \"metadata\": \"string\"\n    },\n    {\n      \"topic\": \"string\",\n      \"partition\": 6448,\n      \"offset\": 4732,\n      \"metadata\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.kafka.v2+json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 7550,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0fc3f2d5-77b8-4581-9eea-c65a1b7a35a0",
+    "name": "Strimzi Kafka Bridge REST Consumer Seek API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Strimzi Kafka Bridge provides an HTTP/REST interface to Apache Kafka. It allows HTTP clients to produce and consume messages, manage consumer group subscriptions, and query topic metadata without needing a native Kafka client library. The Bridge acts as a protocol translator between HTTP and the Kafka protocol. Deploy via the KafkaBridge custom resource.\n\nContact Support:\n Name: Strimzi Community",
+      "type": "text/plain"
+    }
+  }
+}

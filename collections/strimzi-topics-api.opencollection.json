@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Strimzi Kafka Bridge REST Consumer Topics API",
+    "version": "0.28.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Topics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Topics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/topics"
+          },
+          "docs": "Returns a list of all topic names available in the Kafka cluster."
+        },
+        {
+          "info": {
+            "name": "List Topic Partitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/topics/:topicname/partitions",
+            "params": [
+              {
+                "name": "topicname",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Kafka topic"
+              }
+            ]
+          },
+          "docs": "Returns partition metadata for all partitions of a topic, including leader, replicas, and in-sync replicas."
+        },
+        {
+          "info": {
+            "name": "Check Bridge Health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/healthy"
+          },
+          "docs": "Returns HTTP 200 if the Bridge is healthy and connected to Kafka."
+        },
+        {
+          "info": {
+            "name": "Check Bridge Readiness",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/ready"
+          },
+          "docs": "Returns HTTP 200 if the Bridge is ready to accept requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

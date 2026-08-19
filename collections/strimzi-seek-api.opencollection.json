@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Strimzi Kafka Bridge REST Consumer Seek API",
+    "version": "0.28.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Seek",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Seek to Offset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/consumers/:groupid/instances/:name/positions",
+            "params": [
+              {
+                "name": "groupid",
+                "value": "",
+                "type": "path",
+                "description": "The consumer group ID"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The unique name for the consumer instance"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Overrides the fetch offset for one or more topic partitions, allowing the consumer to start reading from a specific position."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,211 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Strimzi Kafka Bridge REST Consumer API",
+    "version": "0.28.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Consumer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/consumers/:groupid",
+            "params": [
+              {
+                "name": "groupid",
+                "value": "",
+                "type": "path",
+                "description": "The consumer group ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Kafka consumer instance in the specified consumer group. Returns a base URI for subsequent consumer operations. Consumer instances are not thread-safe and must be used by a single client."
+        },
+        {
+          "info": {
+            "name": "Delete Consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/consumers/:groupid/instances/:name",
+            "params": [
+              {
+                "name": "groupid",
+                "value": "",
+                "type": "path",
+                "description": "The consumer group ID"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The unique name for the consumer instance"
+              }
+            ]
+          },
+          "docs": "Destroys a consumer instance and removes it from the consumer group. Any subscriptions and assignments are also removed."
+        },
+        {
+          "info": {
+            "name": "List Topic Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/consumers/:groupid/instances/:name/subscription",
+            "params": [
+              {
+                "name": "groupid",
+                "value": "",
+                "type": "path",
+                "description": "The consumer group ID"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The unique name for the consumer instance"
+              }
+            ]
+          },
+          "docs": "Returns the list of topics to which a consumer is subscribed."
+        },
+        {
+          "info": {
+            "name": "Subscribe to Topics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/consumers/:groupid/instances/:name/subscription",
+            "params": [
+              {
+                "name": "groupid",
+                "value": "",
+                "type": "path",
+                "description": "The consumer group ID"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The unique name for the consumer instance"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribes a consumer to one or more Kafka topics. The consumer will receive messages from all partitions of the subscribed topics, with partitions assigned by the Kafka broker."
+        },
+        {
+          "info": {
+            "name": "Unsubscribe from Topics",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/consumers/:groupid/instances/:name/subscription",
+            "params": [
+              {
+                "name": "groupid",
+                "value": "",
+                "type": "path",
+                "description": "The consumer group ID"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The unique name for the consumer instance"
+              }
+            ]
+          },
+          "docs": "Removes the current subscription for a consumer, unsubscribing it from all topics."
+        },
+        {
+          "info": {
+            "name": "Poll for Records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/consumers/:groupid/instances/:name/records",
+            "params": [
+              {
+                "name": "groupid",
+                "value": "",
+                "type": "path",
+                "description": "The consumer group ID"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The unique name for the consumer instance"
+              },
+              {
+                "name": "timeout",
+                "value": "",
+                "type": "query",
+                "description": "Maximum time in milliseconds to wait for records"
+              },
+              {
+                "name": "max_bytes",
+                "value": "",
+                "type": "query",
+                "description": "Maximum total bytes to return in the response"
+              }
+            ]
+          },
+          "docs": "Fetches records from the topics to which the consumer is subscribed. Returns an empty array if no records are available. Calls are long-polled — the server waits up to the timeout for records to become available."
+        },
+        {
+          "info": {
+            "name": "Commit Offsets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/consumers/:groupid/instances/:name/offsets",
+            "params": [
+              {
+                "name": "groupid",
+                "value": "",
+                "type": "path",
+                "description": "The consumer group ID"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The unique name for the consumer instance"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Commits offsets for one or more topic partitions for the consumer. Committed offsets are used to resume consumption after a restart."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

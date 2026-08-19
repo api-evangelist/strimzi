@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Strimzi Kafka Bridge REST Consumer Producer API",
+    "version": "0.28.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Producer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send Messages to Topic",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/topics/:topicname",
+            "params": [
+              {
+                "name": "topicname",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Kafka topic to send messages to"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends one or more messages to a Kafka topic. Messages can include a key, value, partition, headers, and timestamp. Supports JSON-encoded Kafka records."
+        },
+        {
+          "info": {
+            "name": "Send Messages to Partition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/topics/:topicname/partitions/:partitionid",
+            "params": [
+              {
+                "name": "topicname",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Kafka topic"
+              },
+              {
+                "name": "partitionid",
+                "value": "",
+                "type": "path",
+                "description": "The partition ID to send messages to"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends one or more messages to a specific partition of a Kafka topic."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
