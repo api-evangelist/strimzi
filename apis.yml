@@ -127,6 +127,8 @@ apis:
   humanURL: https://strimzi.io/docs/operators/latest/configuring.html
   baseURL: http://localhost:8080
   tags:
+  - Topic
+  tags_raw:
   - Topics
   properties:
   - type: OpenAPI
