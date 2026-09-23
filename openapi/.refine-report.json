@@ -1,10 +1,7 @@
 {
   "provider": "strimzi",
   "sources": [
-    "strimzi-consumer-api-openapi.yml",
-    "strimzi-producer-api-openapi.yml",
-    "strimzi-seek-api-openapi.yml",
-    "strimzi-topics-api-openapi.yml"
+    "_original/strimzi-kafka-bridge-openapi.yml"
   ],
   "outputs": [
     "strimzi-consumer-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "strimzi-kafka-bridge-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "strimzi-consumer-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "strimzi-producer-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "strimzi-seek-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "strimzi-topics-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

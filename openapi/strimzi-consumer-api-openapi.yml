@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Strimzi Kafka Bridge REST Consumer API
   description: The Strimzi Kafka Bridge provides an HTTP/REST interface to Apache Kafka. It allows HTTP clients to produce and consume messages, manage consumer group subscriptions, and query topic metadata without needing a native Kafka client library. The Bridge acts as a protocol translator between HTTP and the Kafka protocol. Deploy via the KafkaBridge custom resource.
@@ -229,15 +229,6 @@ paths:
           $ref: '#/components/responses/ConsumerNotFound'
 components:
   schemas:
-    CreatedConsumer:
-      type: object
-      properties:
-        instance_id:
-          type: string
-          description: The ID of the created consumer instance
-        base_uri:
-          type: string
-          description: The base URI for subsequent requests for this consumer
     ConsumerRecord:
       type: object
       properties:
@@ -271,6 +262,30 @@ components:
         message:
           type: string
           description: A human-readable error message
+    SubscribedTopicList:
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            type: string
+    CreatedConsumer:
+      type: object
+      properties:
+        instance_id:
+          type: string
+          description: The ID of the created consumer instance
+        base_uri:
+          type: string
+          description: The base URI for subsequent requests for this consumer
+    Topics:
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            type: string
+          description: List of topic names to subscribe to
     Consumer:
       type: object
       properties:
@@ -315,21 +330,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OffsetCommitSeek'
-    SubscribedTopicList:
-      type: object
-      properties:
-        topics:
-          type: array
-          items:
-            type: string
-    Topics:
-      type: object
-      properties:
-        topics:
-          type: array
-          items:
-            type: string
-          description: List of topic names to subscribe to
     OffsetCommitSeek:
       type: object
       properties:
@@ -346,14 +346,14 @@ components:
           type: string
           description: Optional metadata string to store with the committed offset
   responses:
-    ConsumerNotFound:
-      description: Consumer not found
+    Conflict:
+      description: Conflict — consumer with the same name already exists
       content:
         application/vnd.kafka.v2+json:
           schema:
             $ref: '#/components/schemas/Error'
-    Conflict:
-      description: Conflict — consumer with the same name already exists
+    ConsumerNotFound:
+      description: Consumer not found
       content:
         application/vnd.kafka.v2+json:
           schema:

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Strimzi Kafka Bridge REST Consumer Producer API
+  title: Strimzi Kafka Bridge REST Producer API
   description: The Strimzi Kafka Bridge provides an HTTP/REST interface to Apache Kafka. It allows HTTP clients to produce and consume messages, manage consumer group subscriptions, and query topic metadata without needing a native Kafka client library. The Bridge acts as a protocol translator between HTTP and the Kafka protocol. Deploy via the KafkaBridge custom resource.
   version: 0.28.0
   contact:
@@ -100,24 +100,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OffsetRecordSent'
-    ProducerRecord:
-      type: object
-      properties:
-        key:
-          description: The message key (optional)
-        value:
-          description: The message value (required)
-        partition:
-          type: integer
-          description: The target partition (optional — if not set, uses partitioner)
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-          description: Optional message headers
-        timestamp:
-          type: integer
-          description: Message timestamp in milliseconds since epoch
     OffsetRecordSent:
       type: object
       properties:
@@ -143,15 +125,33 @@ components:
           description: List of records to produce
           items:
             $ref: '#/components/schemas/ProducerRecord'
+    ProducerRecord:
+      type: object
+      properties:
+        key:
+          description: The message key (optional)
+        value:
+          description: The message value (required)
+        partition:
+          type: integer
+          description: The target partition (optional — if not set, uses partitioner)
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Optional message headers
+        timestamp:
+          type: integer
+          description: Message timestamp in milliseconds since epoch
   responses:
-    TopicNotFound:
-      description: Topic not found
+    UnprocessableEntity:
+      description: Unprocessable entity
       content:
         application/vnd.kafka.v2+json:
           schema:
             $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Unprocessable entity
+    TopicNotFound:
+      description: Topic not found
       content:
         application/vnd.kafka.v2+json:
           schema:
