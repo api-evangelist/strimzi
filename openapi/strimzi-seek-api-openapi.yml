@@ -48,6 +48,13 @@ paths:
         '404':
           $ref: '#/components/responses/ConsumerNotFound'
 components:
+  responses:
+    ConsumerNotFound:
+      description: Consumer not found
+      content:
+        application/vnd.kafka.v2+json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -80,13 +87,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OffsetCommitSeek'
-  responses:
-    ConsumerNotFound:
-      description: Consumer not found
-      content:
-        application/vnd.kafka.v2+json:
-          schema:
-            $ref: '#/components/schemas/Error'
 externalDocs:
   description: Strimzi Kafka Bridge Documentation
   url: https://strimzi.io/docs/bridge/latest/

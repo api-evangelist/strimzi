@@ -9,14 +9,19 @@ description: >-
 url: https://raw.githubusercontent.com/api-evangelist/strimzi/refs/heads/main/apis.yml
 deliveryModel:
   model: unknown
-  open_source: false
+  license_evidence:
+    not_product:
+    - strimzi/strimzi-kafka-bridge
+    - strimzi/strimzi-kafka-operator
+  open_source: unknown
   commercial: false
   callable_host: false
   label: Delivery model not determined — needs a product licence on record
   confidence: low
   source:
   - openapi
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
