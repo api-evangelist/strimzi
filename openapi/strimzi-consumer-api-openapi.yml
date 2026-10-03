@@ -229,6 +229,46 @@ paths:
           $ref: '#/components/responses/ConsumerNotFound'
 components:
   schemas:
+    SubscribedTopicList:
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            type: string
+    OffsetCommitSeekList:
+      type: object
+      properties:
+        offsets:
+          type: array
+          items:
+            $ref: '#/components/schemas/OffsetCommitSeek'
+    CreatedConsumer:
+      type: object
+      properties:
+        instance_id:
+          type: string
+          description: The ID of the created consumer instance
+        base_uri:
+          type: string
+          description: The base URI for subsequent requests for this consumer
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: integer
+          description: The error code
+        message:
+          type: string
+          description: A human-readable error message
+    Topics:
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            type: string
+          description: List of topic names to subscribe to
     OffsetCommitSeek:
       type: object
       properties:
@@ -268,28 +308,6 @@ components:
         timestamp:
           type: integer
           description: Message timestamp in milliseconds since epoch
-    Topics:
-      type: object
-      properties:
-        topics:
-          type: array
-          items:
-            type: string
-          description: List of topic names to subscribe to
-    OffsetCommitSeekList:
-      type: object
-      properties:
-        offsets:
-          type: array
-          items:
-            $ref: '#/components/schemas/OffsetCommitSeek'
-    SubscribedTopicList:
-      type: object
-      properties:
-        topics:
-          type: array
-          items:
-            type: string
     Consumer:
       type: object
       properties:
@@ -327,33 +345,15 @@ components:
           - read_uncommitted
           - read_committed
           default: read_uncommitted
-    Error:
-      type: object
-      properties:
-        error_code:
-          type: integer
-          description: The error code
-        message:
-          type: string
-          description: A human-readable error message
-    CreatedConsumer:
-      type: object
-      properties:
-        instance_id:
-          type: string
-          description: The ID of the created consumer instance
-        base_uri:
-          type: string
-          description: The base URI for subsequent requests for this consumer
   responses:
-    ConsumerNotFound:
-      description: Consumer not found
+    Conflict:
+      description: Conflict — consumer with the same name already exists
       content:
         application/vnd.kafka.v2+json:
           schema:
             $ref: '#/components/schemas/Error'
-    Conflict:
-      description: Conflict — consumer with the same name already exists
+    ConsumerNotFound:
+      description: Consumer not found
       content:
         application/vnd.kafka.v2+json:
           schema:

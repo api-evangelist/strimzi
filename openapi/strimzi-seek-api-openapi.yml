@@ -48,13 +48,6 @@ paths:
         '404':
           $ref: '#/components/responses/ConsumerNotFound'
 components:
-  responses:
-    ConsumerNotFound:
-      description: Consumer not found
-      content:
-        application/vnd.kafka.v2+json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -65,6 +58,13 @@ components:
         message:
           type: string
           description: A human-readable error message
+    OffsetCommitSeekList:
+      type: object
+      properties:
+        offsets:
+          type: array
+          items:
+            $ref: '#/components/schemas/OffsetCommitSeek'
     OffsetCommitSeek:
       type: object
       properties:
@@ -80,13 +80,13 @@ components:
         metadata:
           type: string
           description: Optional metadata string to store with the committed offset
-    OffsetCommitSeekList:
-      type: object
-      properties:
-        offsets:
-          type: array
-          items:
-            $ref: '#/components/schemas/OffsetCommitSeek'
+  responses:
+    ConsumerNotFound:
+      description: Consumer not found
+      content:
+        application/vnd.kafka.v2+json:
+          schema:
+            $ref: '#/components/schemas/Error'
 externalDocs:
   description: Strimzi Kafka Bridge Documentation
   url: https://strimzi.io/docs/bridge/latest/
