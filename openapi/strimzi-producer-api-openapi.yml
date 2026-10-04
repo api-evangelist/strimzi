@@ -83,20 +83,24 @@ paths:
         '404':
           $ref: '#/components/responses/TopicNotFound'
 components:
-  responses:
-    UnprocessableEntity:
-      description: Unprocessable entity
-      content:
-        application/vnd.kafka.v2+json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TopicNotFound:
-      description: Topic not found
-      content:
-        application/vnd.kafka.v2+json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    OffsetRecordSent:
+      type: object
+      properties:
+        partition:
+          type: integer
+          description: The partition the message was sent to
+        offset:
+          type: integer
+          description: The offset of the produced message
+        error_code:
+          type: integer
+          nullable: true
+          description: Error code if the record failed
+        error:
+          type: string
+          nullable: true
+          description: Error message if the record failed
     ProducerRecordList:
       type: object
       properties:
@@ -105,22 +109,6 @@ components:
           description: List of records to produce
           items:
             $ref: '#/components/schemas/ProducerRecord'
-    Error:
-      type: object
-      properties:
-        error_code:
-          type: integer
-          description: The error code
-        message:
-          type: string
-          description: A human-readable error message
-    OffsetRecordSentList:
-      type: object
-      properties:
-        offsets:
-          type: array
-          items:
-            $ref: '#/components/schemas/OffsetRecordSent'
     ProducerRecord:
       type: object
       properties:
@@ -139,23 +127,35 @@ components:
         timestamp:
           type: integer
           description: Message timestamp in milliseconds since epoch
-    OffsetRecordSent:
+    OffsetRecordSentList:
       type: object
       properties:
-        partition:
-          type: integer
-          description: The partition the message was sent to
-        offset:
-          type: integer
-          description: The offset of the produced message
+        offsets:
+          type: array
+          items:
+            $ref: '#/components/schemas/OffsetRecordSent'
+    Error:
+      type: object
+      properties:
         error_code:
           type: integer
-          nullable: true
-          description: Error code if the record failed
-        error:
+          description: The error code
+        message:
           type: string
-          nullable: true
-          description: Error message if the record failed
+          description: A human-readable error message
+  responses:
+    TopicNotFound:
+      description: Topic not found
+      content:
+        application/vnd.kafka.v2+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity
+      content:
+        application/vnd.kafka.v2+json:
+          schema:
+            $ref: '#/components/schemas/Error'
 externalDocs:
   description: Strimzi Kafka Bridge Documentation
   url: https://strimzi.io/docs/bridge/latest/
