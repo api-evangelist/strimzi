@@ -56,13 +56,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    OffsetCommitSeekList:
-      type: object
-      properties:
-        offsets:
-          type: array
-          items:
-            $ref: '#/components/schemas/OffsetCommitSeek'
     Error:
       type: object
       properties:
@@ -72,6 +65,13 @@ components:
         message:
           type: string
           description: A human-readable error message
+    OffsetCommitSeekList:
+      type: object
+      properties:
+        offsets:
+          type: array
+          items:
+            $ref: '#/components/schemas/OffsetCommitSeek'
     OffsetCommitSeek:
       type: object
       properties:

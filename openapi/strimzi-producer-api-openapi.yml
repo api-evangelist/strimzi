@@ -84,6 +84,23 @@ paths:
           $ref: '#/components/responses/TopicNotFound'
 components:
   schemas:
+    ProducerRecordList:
+      type: object
+      properties:
+        records:
+          type: array
+          description: List of records to produce
+          items:
+            $ref: '#/components/schemas/ProducerRecord'
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: integer
+          description: The error code
+        message:
+          type: string
+          description: A human-readable error message
     OffsetRecordSent:
       type: object
       properties:
@@ -101,14 +118,6 @@ components:
           type: string
           nullable: true
           description: Error message if the record failed
-    ProducerRecordList:
-      type: object
-      properties:
-        records:
-          type: array
-          description: List of records to produce
-          items:
-            $ref: '#/components/schemas/ProducerRecord'
     ProducerRecord:
       type: object
       properties:
@@ -134,15 +143,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OffsetRecordSent'
-    Error:
-      type: object
-      properties:
-        error_code:
-          type: integer
-          description: The error code
-        message:
-          type: string
-          description: A human-readable error message
   responses:
     TopicNotFound:
       description: Topic not found

@@ -82,13 +82,6 @@ paths:
         '503':
           description: Bridge is not ready
 components:
-  responses:
-    TopicNotFound:
-      description: Topic not found
-      content:
-        application/vnd.kafka.v2+json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -119,6 +112,13 @@ components:
                 type: boolean
               in_sync:
                 type: boolean
+  responses:
+    TopicNotFound:
+      description: Topic not found
+      content:
+        application/vnd.kafka.v2+json:
+          schema:
+            $ref: '#/components/schemas/Error'
 externalDocs:
   description: Strimzi Kafka Bridge Documentation
   url: https://strimzi.io/docs/bridge/latest/

@@ -229,13 +229,6 @@ paths:
           $ref: '#/components/responses/ConsumerNotFound'
 components:
   schemas:
-    OffsetCommitSeekList:
-      type: object
-      properties:
-        offsets:
-          type: array
-          items:
-            $ref: '#/components/schemas/OffsetCommitSeek'
     CreatedConsumer:
       type: object
       properties:
@@ -245,14 +238,15 @@ components:
         base_uri:
           type: string
           description: The base URI for subsequent requests for this consumer
-    Topics:
+    Error:
       type: object
       properties:
-        topics:
-          type: array
-          items:
-            type: string
-          description: List of topic names to subscribe to
+        error_code:
+          type: integer
+          description: The error code
+        message:
+          type: string
+          description: A human-readable error message
     ConsumerRecord:
       type: object
       properties:
@@ -277,13 +271,14 @@ components:
         timestamp:
           type: integer
           description: Message timestamp in milliseconds since epoch
-    SubscribedTopicList:
+    Topics:
       type: object
       properties:
         topics:
           type: array
           items:
             type: string
+          description: List of topic names to subscribe to
     Consumer:
       type: object
       properties:
@@ -321,15 +316,20 @@ components:
           - read_uncommitted
           - read_committed
           default: read_uncommitted
-    Error:
+    OffsetCommitSeekList:
       type: object
       properties:
-        error_code:
-          type: integer
-          description: The error code
-        message:
-          type: string
-          description: A human-readable error message
+        offsets:
+          type: array
+          items:
+            $ref: '#/components/schemas/OffsetCommitSeek'
+    SubscribedTopicList:
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            type: string
     OffsetCommitSeek:
       type: object
       properties:
